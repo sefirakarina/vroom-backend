@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class AuthController extends Controller
 {
     /**
@@ -23,7 +25,18 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        return $this->respondWithToken($token);
+
+        $user=Auth::user();
+        $data=[
+            'token'=>$token,
+            'id'=>$user->id,
+            'role'=>$user->role
+        ];
+        $array = Array();
+        $array['data'] = $data;
+        return response()->json($array, 200);
+
+        //return $this->respondWithToken($token);
     }
     /**
      * Get the authenticated User.

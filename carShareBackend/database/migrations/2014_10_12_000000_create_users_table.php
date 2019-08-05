@@ -20,8 +20,13 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('role');
             $table->string('status');
+            $table->integer('credit_card_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('credit_card_id')->references('id')->on('credit_cards')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

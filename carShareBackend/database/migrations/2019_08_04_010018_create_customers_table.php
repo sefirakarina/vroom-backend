@@ -16,7 +16,6 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('credit_card_id')->unsigned();
             $table->string('address');
             $table->string('phone_number');
             $table->string('license_number');
@@ -24,7 +23,6 @@ class CreateCustomersTable extends Migration
 
         Schema::table('customers', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('credit_card_id')->references('id')->on('credit_cards')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
