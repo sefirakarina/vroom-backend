@@ -10,7 +10,7 @@ class CreditCard extends Model
     protected $table = 'credit_cards';
     protected $fillable = ['name', 'number', 'exp_date'];
 
-    public function users(){
-        return $this->belongsTo('App\User', 'user_id');
+    public function customer(){
+        return $this->belongsTo('App\Customer', 'customer_id');
     }
 }

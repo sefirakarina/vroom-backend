@@ -10,4 +10,7 @@ class Car extends Model
     protected $table = 'cars';
     protected $fillable = ['location_id', 'plate','type', 'capacity', 'availability'];
 
+    public function location(){
+        return $this->belongsTo('App\Location', 'location_id');
+    }
 }

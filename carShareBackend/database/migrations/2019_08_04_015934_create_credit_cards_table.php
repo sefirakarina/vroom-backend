@@ -15,15 +15,15 @@ class CreateCreditCardsTable extends Migration
     {
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->increments('id');
-           // $table->integer('user_id')->unsigned();
+            $table->integer('customer_id')->unsigned();
             $table->string('number');
             $table->string('name');
             $table->string('exp_date');
         });
 
-//        Schema::table('credit_cards', function (Blueprint $table) {
-//            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');;
-//        });
+        Schema::table('credit_cards', function (Blueprint $table) {
+            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');;
+        });
     }
 
     /**

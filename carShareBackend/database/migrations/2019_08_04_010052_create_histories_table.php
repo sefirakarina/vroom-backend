@@ -15,7 +15,7 @@ class CreateHistoriesTable extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('customer_id')->unsigned();
             $table->integer('car_id')->unsigned();
             $table->integer('return_location_id')->unsigned();
             $table->dateTime('begin_time');
@@ -23,7 +23,7 @@ class CreateHistoriesTable extends Migration
         });
 
         Schema::table('histories', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('car_id')->references('id')->on('cars')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('return_location_id')->references('id')->on('locations')->onUpdate('cascade')->onDelete('cascade');
         });
