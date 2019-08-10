@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $timestamps = false;
+    public $timestamps = false;
     protected $table = 'customers';
     protected $fillable = ['user_id', 'credit_card_id', 'address', 'phone_number', 'license_number'];
 
@@ -16,5 +16,9 @@ class Customer extends Model
 
     public function creditCards(){
         return $this->hasOne('App\CreditCard');
+    }
+
+    public static function customer(){
+        return Customer::all();
     }
 }
