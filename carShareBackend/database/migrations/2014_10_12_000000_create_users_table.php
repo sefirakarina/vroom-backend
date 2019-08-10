@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             //$table->string('status');
             //$table->integer('credit_card_id')->unsigned()->nullable();
             $table->rememberToken();
-            $table->timestamps();
+            // $table->timestamps();
         });
 
 //        Schema::table('users', function (Blueprint $table) {
