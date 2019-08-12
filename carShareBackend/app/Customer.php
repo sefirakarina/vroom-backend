@@ -8,7 +8,7 @@ class Customer extends Model
 {
     public $timestamps = false;
     protected $table = 'customers';
-    protected $fillable = ['user_id', 'credit_card_id', 'address', 'phone_number', 'license_number'];
+    protected $fillable = ['user_id', 'credit_card_id', 'address', 'phone_number', 'license_number','status'];
 
     public function users(){
         return $this->belongsTo('App\User', 'user_id');
