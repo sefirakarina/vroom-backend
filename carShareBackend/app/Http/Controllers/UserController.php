@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -34,7 +36,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request !=null){
+
+            try{
+                $user = User::create ([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'role' => $request->role
+                ]);
+                return response()->json(['message' => 'successfully create user'], 200);
+            }catch (\Exception $e){
+                return response()->json(['error' => 'Email duplication'], 422);
+            }
+
+        } else {
+            return response()->json(['error' => 'Failed to add user'], 404);
+        }
     }
 
     /**
