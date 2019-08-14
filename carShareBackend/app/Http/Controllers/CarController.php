@@ -15,13 +15,6 @@ class CarController extends Controller
     public function index()
     {
 //        $car = Car::all();
-//        $array = Array();
-//        $array['data'] = $car;
-//        if (count($array) > 0) {
-//            return response()->json($array, 200);
-//        } else {
-//            return response()->json(['error' => 'Car not found'], 404);
-//        }
 
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
             ->select('cars.*', 'locations.*')
