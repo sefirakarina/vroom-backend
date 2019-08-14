@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Car;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -13,7 +14,24 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+//        $car = Car::all();
+//        $array = Array();
+//        $array['data'] = $car;
+//        if (count($array) > 0) {
+//            return response()->json($array, 200);
+//        } else {
+//            return response()->json(['error' => 'Car not found'], 404);
+//        }
+
+        $car=Car::join('locations', 'cars.location_id', 'locations.id')
+            ->select('cars.*', 'locations.*')
+            //->where('carts.id', '=', $id)
+            ->get();
+        $array = Array();
+        $array['data'] = $car;
+        if(count($car) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'car not found'], 404);
     }
 
     /**
