@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Booking;
 
 class BookingController extends Controller
 {
@@ -11,6 +12,14 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $booking;
+    public function __construct(Booking $booking)
+    {
+        $this->middleware('auth:api');
+        $this->booking = $booking;
+    }
+
     public function index()
     {
         //

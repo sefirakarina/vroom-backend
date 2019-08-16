@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -12,12 +12,30 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     *
+     *
      */
-    public function index()
+
+    protected $user;
+    public function __construct(User $user)
     {
-        //
+        $this->middleware('auth:api');
+        $this->user = $user;
     }
 
+    public function index()
+    {
+        $user = User::where('role', 'admin')->get();
+
+        $array = Array();
+        $array['data'] = $user;
+
+        if ($user != null) {
+            return response()->json($array, 200);
+        } else {
+            return response()->json(['error' => 'no admin found'], 404);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +45,6 @@ class UserController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -54,7 +71,6 @@ class UserController extends Controller
             return response()->json(['error' => 'Failed to add user'], 404);
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -65,7 +81,6 @@ class UserController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -76,7 +91,6 @@ class UserController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *aaa
@@ -88,7 +102,6 @@ class UserController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
