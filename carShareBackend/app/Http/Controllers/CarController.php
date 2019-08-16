@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use App\Car;
 use Illuminate\Http\Request;
-
 class CarController extends Controller
 {
     /**
@@ -11,11 +9,27 @@ class CarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    protected $car;
+    public function __construct(Car $car)
     {
-        //
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+        $this->car = $car;
     }
 
+    public function index()
+    {
+//        $car = Car::all();
+        $car=Car::join('locations', 'cars.location_id', 'locations.id')
+            ->select('cars.*', 'locations.*')
+            //->where('carts.id', '=', $id)
+            ->get();
+        $array = Array();
+        $array['data'] = $car;
+        if(count($car) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'car not found'], 404);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +39,6 @@ class CarController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,7 +49,6 @@ class CarController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *
@@ -47,7 +59,6 @@ class CarController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -58,7 +69,6 @@ class CarController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -70,7 +80,6 @@ class CarController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
