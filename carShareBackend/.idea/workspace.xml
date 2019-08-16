@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6df859e4-aa47-445b-80c0-e4113c4d90af" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/tests/Unit/CreditCardTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookingController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CarController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CarController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HistoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HistoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LocationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LocationController.php" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CarController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CarController.php" afterDir="false" />
+>>>>>>> d7dd9cbf1b3a315d6d2d83049250e60ec0b15c61
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,6 +24,14 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+<<<<<<< HEAD
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+=======
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1611412015">
@@ -279,6 +293,7 @@
     <packageJsonPaths>
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
+>>>>>>> 22fe1c9cb07fe39e67bbe2ec66d3ac6f9db25a5c
   </component>
   <component name="PhpServers">
     <servers />
@@ -373,12 +388,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="80" />
-    <option name="width" value="980" />
-    <option name="height" value="1040" />
-  </component>
+  <component name="ProjectId" id="1PJ5Llibs6rSlA4buJzlSOas6sS" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+<<<<<<< HEAD
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -465,12 +477,16 @@
       </pane>
     </panes>
   </component>
+=======
+>>>>>>> d7dd9cbf1b3a315d6d2d83049250e60ec0b15c61
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -515,17 +531,30 @@
       <workItem from="1565141136403" duration="2381000" />
       <workItem from="1565393829520" duration="7000" />
       <workItem from="1565407523948" duration="1193000" />
+<<<<<<< HEAD
       <workItem from="1565578309581" duration="3300000" />
       <workItem from="1565587644826" duration="587000" />
       <workItem from="1565741566478" duration="569000" />
       <workItem from="1565749528010" duration="3679000" />
       <workItem from="1565940053194" duration="2273000" />
+=======
+<<<<<<< HEAD
+      <workItem from="1565578309581" duration="594000" />
+      <workItem from="1565579318529" duration="4766000" />
+      <workItem from="1565732219155" duration="7358000" />
+    </task>
+    <servers />
+  </component>
+=======
+      <workItem from="1565578309581" duration="2686000" />
+>>>>>>> d7dd9cbf1b3a315d6d2d83049250e60ec0b15c61
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="43469000" />
   </component>
+>>>>>>> 22fe1c9cb07fe39e67bbe2ec66d3ac6f9db25a5c
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -535,6 +564,8 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
+<<<<<<< HEAD
+=======
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
@@ -561,12 +592,29 @@
       <window_info anchor="right" id="Database" order="3" />
     </layout>
   </component>
+>>>>>>> 22fe1c9cb07fe39e67bbe2ec66d3ac6f9db25a5c
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
+<<<<<<< HEAD
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+=======
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/config/jwt.php">
       <provider selected="true" editor-type-id="text-editor" />
@@ -897,5 +945,6 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 22fe1c9cb07fe39e67bbe2ec66d3ac6f9db25a5c
   </component>
 </project>

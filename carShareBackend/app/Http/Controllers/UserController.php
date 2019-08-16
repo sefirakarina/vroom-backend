@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
+
 class UserController extends Controller
 {
     /**
@@ -51,6 +54,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if($request !=null){
+
             try{
                 $user = User::create ([
                     'name' => $request->name,
@@ -62,6 +66,7 @@ class UserController extends Controller
             }catch (\Exception $e){
                 return response()->json(['error' => 'Email duplication'], 422);
             }
+
         } else {
             return response()->json(['error' => 'Failed to add user'], 404);
         }
