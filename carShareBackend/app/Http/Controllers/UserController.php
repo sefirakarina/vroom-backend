@@ -25,7 +25,9 @@ class UserController extends Controller
 
     public function index()
     {
-        $user = User::where('role', 'admin')->get();
+        $user = User::where('role', 'admin')
+                ->select('users.name', 'users.email', 'users.role')
+                ->get();
 
         $array = Array();
         $array['data'] = $user;
