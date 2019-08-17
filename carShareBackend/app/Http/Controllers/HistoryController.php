@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\History;
 
 class HistoryController extends Controller
 {
@@ -11,6 +12,13 @@ class HistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $history;
+    public function __construct(History $history)
+    {
+        $this->middleware('auth:api');
+        $this->history = $history;
+    }
+
     public function index()
     {
         //

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Location;
 
 class LocationController extends Controller
 {
@@ -11,6 +12,13 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $location;
+    public function __construct(Location $location){
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+        $this->location = $location;
+    }
+
     public function index()
     {
         //
