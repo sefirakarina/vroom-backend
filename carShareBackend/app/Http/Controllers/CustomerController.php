@@ -117,8 +117,27 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+    // $customer = Customer::find($id);
+    // $customer->delete();
+    // return redirect('/customers')->with('success', 'Account deleted!');
     }
+
+    public function updateStatus($id)
+    {
+        
+     $customer = Customer::find($id);
+     $customer->status = 1;
+     $customer->save();
+
+    if($customer->status == 1){
+            return response()->json($customer->status, 200);
+        } else {
+            return response()->json(['error' => 'Activation error'], 404);
+        }
+    }
+    // return redirect('/users/update/')->with('success', 'Status updated!');
+    
+    
 
 //    public function showCustomerBooking($id){
 //        $customer = Booking::join('cars','bookings.car_id','=','cars.id')
