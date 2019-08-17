@@ -15,7 +15,7 @@ class CustomerController extends Controller
 
     protected $customer;
     public function __construct(Customer $customer){
-        //$this->middleware('auth:api', ['except' => ['index']]);
+        $this->middleware('auth:api', ['except' => ['store']]);
         $this->customer = $customer;
     }
     /**
@@ -25,7 +25,16 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customer=Customer::join('users', 'customers.user_id', 'users.id')
+            ->join('credit_cards', 'credit_cards.customer_id', 'customers.id')
+            ->select('users.name', 'users.email', 'users.role', 'customers.*', 'credit_cards.*')
+            //->where('carts.id', '=', $id)
+            ->get();
+        $array = Array();
+        $array['data'] = $customer;
+        if(count($customer) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'customer not found'], 404);
     }
 
     /**
@@ -83,7 +92,16 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer=Customer::join('users', 'customers.user_id', 'users.id')
+            ->join('credit_cards', 'credit_cards.customer_id', 'customers.id')
+            ->select('users.name', 'users.email', 'users.role', 'customers.*', 'credit_cards.*')
+            ->where('customers.id', '=', $id)
+            ->get();
+        $array = Array();
+        $array['data'] = $customer;
+        if(count($customer) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'customer not found'], 404);
     }
 
     /**
@@ -122,21 +140,47 @@ class CustomerController extends Controller
     // return redirect('/customers')->with('success', 'Account deleted!');
     }
 
-    public function updateStatus($id)
+    public function activateCustomer($id)
     {
         
-     $customer = Customer::find($id);
-     $customer->status = 1;
-     $customer->save();
+        $customer = Customer::find($id);
+        $customer->status = 1;
+        $customer->save();
 
-    if($customer->status == 1){
-            return response()->json($customer->status, 200);
+        if($customer->status == 1){
+            return response()->json(['message' => 'Successfully activate user'], 200);
         } else {
             return response()->json(['error' => 'Activation error'], 404);
         }
     }
-    // return redirect('/users/update/')->with('success', 'Status updated!');
-    
+
+    public function showInactiveCustomers()
+    {
+        $customer=Customer::join('users', 'customers.user_id', 'users.id')
+            ->join('credit_cards', 'credit_cards.customer_id', 'customers.id')
+            ->select('users.name', 'users.email', 'users.role', 'customers.*', 'credit_cards.*')
+            ->where('customers.status', '=', 0)
+            ->get();
+        $array = Array();
+        $array['data'] = $customer;
+        if(count($customer) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'customer not found'], 404);
+    }
+
+    public function showActiveCustomers()
+    {
+        $customer=Customer::join('users', 'customers.user_id', 'users.id')
+            ->join('credit_cards', 'credit_cards.customer_id', 'customers.id')
+            ->select('users.name', 'users.email', 'users.role', 'customers.*', 'credit_cards.*')
+            ->where('customers.status', '=', 1)
+            ->get();
+        $array = Array();
+        $array['data'] = $customer;
+        if(count($customer) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'customer not found'], 404);
+    }
     
 
 //    public function showCustomerBooking($id){
