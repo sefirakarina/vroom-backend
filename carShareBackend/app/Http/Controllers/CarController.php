@@ -19,11 +19,8 @@ class CarController extends Controller
         $this->middleware('auth:api', ['except' => ['index', 'show']]);
         $this->car = $car;
 
-//        $car = Car::all();
-
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
             ->select('cars.*', 'locations.*')
-            //->where('carts.id', '=', $id)
             ->get();
         $array = Array();
         $array['data'] = $car;
@@ -35,10 +32,8 @@ class CarController extends Controller
 
     public function index()
     {
-//        $car = Car::all();
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
             ->select('cars.*', 'locations.*')
-            //->where('carts.id', '=', $id)
             ->get();
         $array = Array();
         $array['data'] = $car;
