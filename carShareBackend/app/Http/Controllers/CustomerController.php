@@ -94,7 +94,8 @@ class CustomerController extends Controller
     {
         $customer=Customer::join('users', 'customers.user_id', 'users.id')
             ->join('credit_cards', 'credit_cards.customer_id', 'customers.id')
-            ->select('users.name', 'users.email', 'users.role', 'customers.*', 'credit_cards.*')
+            ->select('customers.*','users.name', 'users.email', 'users.role', 'credit_cards.id as cc_id', 'credit_cards.name as cc_name',
+                    'credit_cards.number', 'credit_cards.exp_date')
             ->where('customers.id', '=', $id)
             ->get();
         $array = Array();
