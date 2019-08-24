@@ -19,7 +19,7 @@ class CreateCustomersTable extends Migration
             //$table->integer('credit_card_id')->unsigned();
             $table->string('address');
             $table->string('phone_number');
-            $table->string('license_number');
+            $table->string('license_number')->unique();
             $table->boolean('status');
         });
 
