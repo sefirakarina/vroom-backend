@@ -16,7 +16,7 @@ class CarController extends Controller
     public function __construct(Car $car)
     {
 
-        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'getByAvailability']]);
         $this->car = $car;
     }
 
@@ -123,7 +123,40 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+
+            $currentLocation = Car::where('id', $id)
+                ->select('location_id')
+                ->first();
+
+            $currentLocationId = $currentLocation->location_id;
+
+            $car = Car::where('id', $id)->update([
+                'type' => $request->type,
+                'location_id' => $request->location_id,
+                'plate' => $request->plate ,
+                'capacity' => $request->capacity,
+                'availability' => $request->availability
+            ]);
+            if ($car != null) {
+
+                if($currentLocationId != $request-> location_id){
+
+                    $locationOld = Location::find($currentLocationId);
+                    $locationOld-> current_car_num = $locationOld ->current_car_num -1 ;
+                    $locationOld->save();
+
+                    $locationNew = Location::find($request-> location_id);
+                    $locationNew-> current_car_num = $locationNew ->current_car_num +1 ;
+                    $locationNew->save();
+                }
+                return response()->json(['message' => 'Car sucessfully updated'], 200);
+            } else {
+                return response()->json(['error' => 'Car not updated'], 404);
+            }
+        }catch (\Exception $e){
+            return response()->json(['error' => 'Failed to edit car'], 404);
+        }
     }
     /**
      * Remove the specified resource from storage.
@@ -133,6 +166,45 @@ class CarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $car = Car::where('id', $id)->delete();
+
+            if ($car != null) {
+
+                $locationCarNum = Location::where('id', $id)
+                    ->select('current_car_num')
+                    ->first();
+
+                $location = Location::find($id);
+                $location-> current_car_num = $locationCarNum->current_car_num -1 ;
+                $location->save();
+
+                return response()->json(['message' => 'Car successfully deleted'], 200);
+            } else {
+                return response()->json(['error' => 'Car cannot be deleted'], 404);
+            }
+
+        }catch (\Exception $e){
+            return response()->json(['error' => 'Failed to delete car'], 404);
+        }
+
+    }
+
+    public function getByAvailability($availability){
+
+        $car=Car::join('locations', 'cars.location_id', 'locations.id')
+            ->select('cars.*', 'locations.*')
+            ->where('availability', $availability)
+            ->get();
+
+        $array = Array();
+        $array['data'] = $car;
+
+        if ($car != null) {
+
+            return response()->json($car, 200);
+        } else {
+            return response()->json(['error' => 'no car with such availability'], 404);
+        }
     }
 }

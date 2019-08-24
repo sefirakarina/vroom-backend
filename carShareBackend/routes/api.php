@@ -29,6 +29,8 @@ Route::put('users/activate/{id}', 'CustomerController@activateCustomer');
 Route::get('users/customers/inactive', 'CustomerController@showInactiveCustomers');
 Route::get('users/customers/active', 'CustomerController@showActiveCustomers');
 
+Route::get('cars/availability/{availability}', 'CarController@getByAvailability');
+
 Route::resource('bookings', 'BookingController');
 Route::resource('customers', 'CustomerController');
 Route::resource('cars', 'CarController');

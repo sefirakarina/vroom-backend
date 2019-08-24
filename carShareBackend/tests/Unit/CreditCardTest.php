@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class CustomerTest extends TestCase
+class CreditCardTest extends TestCase
 {
     use DatabaseTransactions;
     /**

@@ -29,6 +29,38 @@ class CarsTableSeeder extends Seeder
             'availability' =>true
         ]);
 
+        DB::table('cars')->insert([
+            'id' => 3,
+            'location_id' => 2,
+            'type'=>"Toyota Corolla",
+            'plate' => "C12342",
+            'capacity' => 5,
+            'availability' =>true
+        ]);
+        DB::table('cars')->insert([
+            'id' => 4,
+            'location_id' => 1,
+            'type'=>"Honda Civic",
+            'plate' => "F12535",
+            'capacity' => 5,
+            'availability' =>true
+        ]);
+        DB::table('cars')->insert([
+            'id' => 5,
+            'location_id' => 3,
+            'type'=>"Honda Jazz",
+            'plate' => "G352414",
+            'capacity' => 5,
+            'availability' =>true
+        ]);
+        DB::table('cars')->insert([
+            'id' => 6,
+            'location_id' => 4,
+            'type'=>"Honda Jazz",
+            'plate' => "P352414",
+            'capacity' => 5,
+            'availability' =>true
+        ]);
 
     }
 }
