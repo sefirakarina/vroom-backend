@@ -23,7 +23,7 @@ class CarController extends Controller
     public function index()
     {
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
-            ->select('cars.*', 'locations.*')
+            ->select('cars.*', 'locations.coordinate', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->get();
         $array = Array();
         $array['data'] = $car;
@@ -95,7 +95,7 @@ class CarController extends Controller
     public function show($id)
     {
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
-            ->select('cars.*', 'locations.*')
+            ->select('cars.*', 'locations.coordinate', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->where('cars.id', '=', $id)
             ->get();
         $array = Array();
@@ -193,7 +193,7 @@ class CarController extends Controller
     public function getByAvailability($availability){
 
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
-            ->select('cars.*', 'locations.*')
+            ->select('cars.*', 'locations.coordinate', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->where('availability', $availability)
             ->get();
 
