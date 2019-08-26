@@ -19,6 +19,7 @@ class CreateCarsTable extends Migration
             $table->string('plate')->unique();
             $table->string('type');
             $table->integer('capacity');
+            $table->string('image_path');
             $table->boolean('availability');
         });
 

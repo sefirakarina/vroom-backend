@@ -15,8 +15,8 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('address');
-            $table->string('coordinate');
+            $table->string('address')->unique();
+            $table->string('coordinate')->unique();
             $table->integer('slot');
             $table->integer('current_car_num');
         });
