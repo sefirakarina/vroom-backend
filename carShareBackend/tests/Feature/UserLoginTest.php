@@ -17,7 +17,6 @@ class UserLoginTest extends TestCase
      */
     public function testExample()
     {
-
         factory(User::class)->create([
             'id' => 1,
             'name' => "Sue",
@@ -25,7 +24,6 @@ class UserLoginTest extends TestCase
             'password' => Hash::make("secret"),
             'role' => 'customer'
         ]);
-
         factory(User::class)->create([
             'id' => 2,
             'name' => "john",
@@ -33,7 +31,6 @@ class UserLoginTest extends TestCase
             'password' => Hash::make("secret"),
             'role' => 'admin'
         ]);
-
         factory(User::class)->create([
             'id' => 3,
             'name' => "jane",
@@ -41,7 +38,6 @@ class UserLoginTest extends TestCase
             'password' => Hash::make("secret"),
             'role' => 'superAdmin'
         ]);
-
         //customer login test
         $response = $this->call('POST', 'api/auth/login',
             [
@@ -50,7 +46,6 @@ class UserLoginTest extends TestCase
             ]
         );
         $response->assertStatus(200);
-
         $response = $this->call('POST', 'api/auth/login',
             [
                 'email' => 'Sue@gmail.com',
@@ -58,7 +53,6 @@ class UserLoginTest extends TestCase
             ]
         );
         $response->assertStatus(401);
-
         //admin login test
         $response = $this->call('POST', 'api/auth/login',
             [
@@ -74,7 +68,6 @@ class UserLoginTest extends TestCase
             ]
         );
         $response->assertStatus(401);
-
         //superAdmin login test
         $response = $this->call('POST', 'api/auth/login',
             [
