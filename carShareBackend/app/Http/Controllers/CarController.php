@@ -73,7 +73,10 @@ class CarController extends Controller
                     $location-> current_car_num = $location-> current_car_num + 1;
                     $location->save();
 
-                    return response()->json(['message' => 'successfully create car'], 200);
+                    $array = Array();
+                    $array['data'] = $car;
+
+                    return response()->json($array, 200);
                 }catch (\Exception $e){
                     return response()->json(['error' => 'Failed to add car, plate number already exist'], 404);
                 }
@@ -152,7 +155,11 @@ class CarController extends Controller
                     $locationNew-> current_car_num = $locationNew ->current_car_num +1 ;
                     $locationNew->save();
                 }
-                return response()->json(['message' => 'Car sucessfully updated'], 200);
+
+                $array = Array();
+                $array['data'] = $car;
+
+                return response()->json($array, 200);
             } else {
                 return response()->json(['error' => 'Car not updated'], 404);
             }
