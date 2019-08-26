@@ -8,7 +8,7 @@ class Car extends Model
 {
     public $timestamps = false;
     protected $table = 'cars';
-    protected $fillable = ['location_id', 'plate','type', 'capacity', 'availability'];
+    protected $fillable = ['location_id', 'plate','type', 'capacity', 'availability', 'image_path'];
 
     public function location(){
         return $this->belongsTo('App\Location', 'location_id');

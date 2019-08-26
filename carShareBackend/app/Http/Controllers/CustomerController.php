@@ -76,7 +76,7 @@ class CustomerController extends Controller
                 ]);
                 return response()->json(['message' => 'successfully create user'], 200);
             }catch (\Exception $e){
-                return response()->json(['error' => 'Username duplication'], 422);
+                return response()->json(['error' => 'Username, Licence, or Credit Card duplication'], 422);
             }
 
         } else {

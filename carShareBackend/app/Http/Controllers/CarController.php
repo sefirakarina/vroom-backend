@@ -65,6 +65,7 @@ class CarController extends Controller
                         'location_id' => $request->location_id,
                         'plate' => $request->plate ,
                         'capacity' => $request->capacity,
+                        'image_path' => $request->image_path,
                         'availability' => $request->availability,
                     ]);
 
@@ -74,7 +75,7 @@ class CarController extends Controller
 
                     return response()->json(['message' => 'successfully create car'], 200);
                 }catch (\Exception $e){
-                    return response()->json(['error' => 'Failed to add car'], 404);
+                    return response()->json(['error' => 'Failed to add car, plate number already exist'], 404);
                 }
 
 
@@ -136,6 +137,7 @@ class CarController extends Controller
                 'location_id' => $request->location_id,
                 'plate' => $request->plate ,
                 'capacity' => $request->capacity,
+                'image_path' => $request->image_path,
                 'availability' => $request->availability
             ]);
             if ($car != null) {

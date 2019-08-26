@@ -17,6 +17,7 @@ class CarsTableSeeder extends Seeder
             'type'=>"Volkswagen Beetles",
             'plate' => "B121212",
             'capacity' => 4,
+            'image_path'=>"./vroom-frontend/src/assets/volkswagen.jpg",
             'availability' =>true
         ]);
 
@@ -26,6 +27,7 @@ class CarsTableSeeder extends Seeder
             'type'=>"Toyota Alphard",
             'plate' => "A234563",
             'capacity' => 6,
+            'image_path'=>"./vroom-frontend/src/assets/alphard.jpg",
             'availability' =>true
         ]);
 
@@ -35,6 +37,7 @@ class CarsTableSeeder extends Seeder
             'type'=>"Toyota Corolla",
             'plate' => "C12342",
             'capacity' => 5,
+            'image_path'=>"./vroom-frontend/src/assets/corolla.jpg",
             'availability' =>true
         ]);
         DB::table('cars')->insert([
@@ -43,6 +46,7 @@ class CarsTableSeeder extends Seeder
             'type'=>"Honda Civic",
             'plate' => "F12535",
             'capacity' => 5,
+            'image_path'=>"./vroom-frontend/src/assets/civic.jpg",
             'availability' =>true
         ]);
         DB::table('cars')->insert([
@@ -51,14 +55,16 @@ class CarsTableSeeder extends Seeder
             'type'=>"Honda Jazz",
             'plate' => "G352414",
             'capacity' => 5,
+            'image_path'=>"./vroom-frontend/src/assets/jazz.jpg",
             'availability' =>true
         ]);
         DB::table('cars')->insert([
             'id' => 6,
             'location_id' => 4,
-            'type'=>"Honda Jazz",
+            'type'=>"Daihatsu Charade",
             'plate' => "P352414",
             'capacity' => 5,
+            'image_path'=>"./vroom-frontend/src/assets/charade.jpg",
             'availability' =>true
         ]);
 
