@@ -143,6 +143,7 @@ class CarController extends Controller
                 'image_path' => $request->image_path,
                 'availability' => $request->availability
             ]);
+
             if ($car != null) {
 
                 if($currentLocationId != $request-> location_id){
@@ -156,10 +157,7 @@ class CarController extends Controller
                     $locationNew->save();
                 }
 
-                $array = Array();
-                $array['data'] = $car;
-
-                return response()->json($array, 200);
+                return response()->json(['message' => 'update success'], 200);
             } else {
                 return response()->json(['error' => 'Car not updated'], 404);
             }
@@ -211,7 +209,7 @@ class CarController extends Controller
 
         if ($car != null) {
 
-            return response()->json($car, 200);
+            return response()->json($array, 200);
         } else {
             return response()->json(['error' => 'no car with such availability'], 404);
         }
