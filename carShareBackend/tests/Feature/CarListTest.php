@@ -84,8 +84,6 @@ class CarListTest extends TestCase
         );
         $response->assertStatus(404);
 
-        //dd($new_car_id);
-
         // edit a car with correct input
         $response = $this->call('PATCH', 'api/cars/' . $new_car_id,
             [
