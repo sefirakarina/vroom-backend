@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Location;
+use mysql_xdevapi\Exception;
 
 class LocationController extends Controller
 {
@@ -21,7 +22,16 @@ class LocationController extends Controller
 
     public function index()
     {
-        //
+        $location = Location::all();
+
+        $array = Array();
+        $array['data'] = $location;
+
+        if ($location != null) {
+            return response()->json($array, 200);
+        } else {
+            return response()->json(['error' => 'Location not found'], 404);
+        }
     }
 
     /**
@@ -53,7 +63,14 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+        $location = Location::find($id);
+        $array = Array();
+        $array['data'] = $location;
+        if (sizeof($array) > 0) {
+            return response()->json($array, 200);
+        } else {
+            return response()->json(['error' => 'Location not found'], 404);
+        }
     }
 
     /**
@@ -76,7 +93,39 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dup = false;
+
+        $input_coordinate = $request->coordinate;
+
+        // Check for duplication
+        $count = DB::table('locations')
+                        ->where('locations.coordinate', $input_coordinate)
+                        ->count();
+
+        if ($count > 0) $dup = true;
+
+
+        //  Update the location if there is no duplication and the field is not null
+        try{
+            if (!$dup){
+                $new_location = Location::where('id', $id)->update([
+                    'address' => $request->address,
+                    'coordinate' => $request->coordinate,
+                    'slot' => $request->slot,
+                    'current_car_num' => $request->current_car_num,
+                ]);
+                if ($new_location != null) {
+                    return response()->json($new_location, 200);
+                } else {
+                    return response()->json(['error' => 'Location not updated'], 404);
+                }
+            }
+        } catch (\Exception $e){
+            return response()->json(['error' => ' Failed to edit car'], 404);
+        }
+
+        // TODO: Check CarController
+
     }
 
     /**
