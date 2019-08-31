@@ -51,9 +51,25 @@ class LocationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+{
+    if($request !=null){
+
+        try{
+            $location = Location::create ([
+                'address' => $request->address,
+                'coordinate' => $request->coordinate,
+                'slot' => $request->slot,
+                'current_car_num' => 0
+            ]);
+            return response()->json(['message' => 'successfully create location'], 200);
+        }catch (\Exception $e){
+            return response()->json(['error' => 'address is duplicated'], 422);
+        }
+    
+    } else {
+        return response()->json(['error' => 'Failed to add location'], 404);
     }
+}
 
     /**
      * Display the specified resource.
@@ -136,6 +152,14 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+       $location = Location::find($id);
+       $car_num = $location->current_car_num;
+       if ($car_num == 0){
+       $location->delete();
+       return response()->json($location, 200);
+        // return redirect('/locations')->with('success', 'Location deleted!');
+       }else{
+        return response()->json(['error' => 'Unable to remove the location'], 404);
+       }    
+}
 }
