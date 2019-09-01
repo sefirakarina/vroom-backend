@@ -35,5 +35,3 @@ Route::resource('cars', 'CarController');
 Route::resource('histories', 'HistoryController');
 Route::resource('locations', 'LocationController');
 Route::resource('users', 'UserController');
-
-Route::delete('/locations/{id}', 'LocationController@destroy');
