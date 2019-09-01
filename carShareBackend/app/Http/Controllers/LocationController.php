@@ -109,38 +109,24 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dup = false;
+        if($request != null){
+            try{
 
-        $input_coordinate = $request->coordinate;
-
-        // Check for duplication
-        $count = DB::table('locations')
-                        ->where('locations.coordinate', $input_coordinate)
-                        ->count();
-
-        if ($count > 0) $dup = true;
-
-
-        //  Update the location if there is no duplication and the field is not null
-        try{
-            if (!$dup){
-                $new_location = Location::where('id', $id)->update([
+                Location::where('id', $id)->update([
                     'address' => $request->address,
                     'coordinate' => $request->coordinate,
                     'slot' => $request->slot,
                     'current_car_num' => $request->current_car_num,
                 ]);
-                if ($new_location != null) {
-                    return response()->json($new_location, 200);
-                } else {
-                    return response()->json(['error' => 'Location not updated'], 404);
-                }
-            }
-        } catch (\Exception $e){
-            return response()->json(['error' => ' Failed to edit car'], 404);
-        }
+                return response()->json(['message' => 'successfully edit car'], 200);
 
-        // TODO: Check CarController
+            } catch (\Exception $e){
+                return response()->json(['error' => 'location duplication'], 404);
+            }
+
+        }else {
+            return response()->json(['error' => 'Location not updated'], 404);
+        }
 
     }
 
@@ -156,7 +142,7 @@ class LocationController extends Controller
        $car_num = $location->current_car_num;
        if ($car_num == 0){
        $location->delete();
-       return response()->json($location, 200);
+       return response()->json(['message' => 'successfully delete location'], 200);
         // return redirect('/locations')->with('success', 'Location deleted!');
        }else{
         return response()->json(['error' => 'Unable to remove the location'], 404);
