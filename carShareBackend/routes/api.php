@@ -24,11 +24,9 @@ Route::group([
 //    return $request->user();
 //});
 Route::get('bookings/customer/{id}', 'BookingController@showCustomerBooking');
-
 Route::put('users/activate/{id}', 'CustomerController@activateCustomer');
 Route::get('users/customers/inactive', 'CustomerController@showInactiveCustomers');
 Route::get('users/customers/active', 'CustomerController@showActiveCustomers');
-
 Route::get('cars/availability/{availability}', 'CarController@getByAvailability');
 
 Route::resource('bookings', 'BookingController');
@@ -37,3 +35,5 @@ Route::resource('cars', 'CarController');
 Route::resource('histories', 'HistoryController');
 Route::resource('locations', 'LocationController');
 Route::resource('users', 'UserController');
+
+Route::delete('/locations/{id}', 'LocationController@destroy');
