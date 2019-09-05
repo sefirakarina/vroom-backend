@@ -44,7 +44,7 @@ class CarListTest extends TestCase
             'type'=>"Volkswagen Beetles",
             'plate' => "B121fd212",
             'capacity' => 4,
-            'image_path'=>"./vroom-frontend/src/assets/volkswagen.jpg",
+            'image_path'=>"./vroom-frontend/src/assets/volkswagen.PNG",
             'availability' =>true
         ]);
 

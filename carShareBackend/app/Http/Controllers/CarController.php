@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Car;
 use App\Location;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+use Intervention\Image\Exception\NotReadableException;
+
 class CarController extends Controller
 {
     /**
@@ -16,7 +19,7 @@ class CarController extends Controller
     public function __construct(Car $car)
     {
 
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'getByAvailability']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'getByAvailability',  'testImg']]);
         $this->car = $car;
     }
 
@@ -50,7 +53,22 @@ class CarController extends Controller
     {
         if($request !=null){
 
-            $locationCapacity = Location::where('id', $request->location_id)
+            // Handle File Upload
+            if($request->hasFile('cover_image')){
+                // Get filename with the extension
+                $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = $request->file('cover_image')->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                // Upload Image
+            } else {
+                $fileNameToStore = 'noImage.jpg';
+            }
+
+            $locationCapacity = Location::where('id', 1)
                 ->select('slot', 'current_car_num')
                 ->first();
 
@@ -60,23 +78,32 @@ class CarController extends Controller
 
 
                 try{
+//                    $car = Car::create ([
+//                        'type' => $request->type,
+//                        'location_id' => $request->location_id,
+//                        'plate' => $request->plate ,
+//                        'capacity' => $request->capacity,
+//                        'image_path' => '/storage/cover_images/'.$fileNameToStore,
+//                        'availability' => $request->availability,
+//                    ]);
+
                     $car = Car::create ([
-                        'type' => $request->type,
-                        'location_id' => $request->location_id,
-                        'plate' => $request->plate ,
-                        'capacity' => $request->capacity,
-                        'image_path' => $request->image_path,
-                        'availability' => $request->availability,
+                        'type' => "dfdfsd",
+                        'location_id' => 1,
+                        'plate' => "yayayay" ,
+                        'capacity' => 3,
+                        'image_path' => '/storage/cover_images/'.$fileNameToStore,
+                        'availability' => true,
                     ]);
 
-                    $location = Location::find($request->location_id);
-                    $location-> current_car_num = $location-> current_car_num + 1;
-                    $location->save();
+                  $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
 
-                    $array = Array();
-                    $array['data'] = $car;
+//                    $location = Location::find($request->location_id);
+//                    $location-> current_car_num = $location-> current_car_num + 1;
+//                    $location->save();
 
-                    return response()->json($array, 200);
+
+                    return response()->json(['message' => 'successfuly create car'], 200);
                 }catch (\Exception $e){
                     return response()->json(['error' => 'Failed to add car, plate number already exist'], 404);
                 }
@@ -101,12 +128,30 @@ class CarController extends Controller
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
             ->select('cars.*', 'locations.coordinate', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->where('cars.id', '=', $id)
-            ->get();
-        $array = Array();
-        $array['data'] = $car;
-        if(count($car) > 0)
+            ->first();
+
+       // $pathToFile = $car -> image_path;
+       //$array = Array();
+       // $headers = ['Content-Type' => 'image/png'];
+
+        $storagePath = public_path() . $car-> image_path;
+
+
+
+        $array['data'] = array(     'type' => $car->type,
+                                    'location_id' => $car->location_id,
+                                    'plate' => $car->plate ,
+                                    'capacity' => $car->capacity,
+                                    'image_path' => Image::make($storagePath),
+                                    'availability' => $car->availability,
+                                    'coordinate'=> $car->coordinate,
+                                    'address' => $car-> address,
+                                    'slot'=> $car-> slot,
+                                    'current_car_num' => $car-> current_car_num
+                                );
+
             return response()->json($array, 200);
-        return response()->json(['error' => 'car not found'], 404);
+        //return response()->json(['error' => 'car not found'], 404);
     }
     /**
      * Show the form for editing the specified resource.
@@ -129,20 +174,42 @@ class CarController extends Controller
     {
         try{
 
+
             $currentLocation = Car::where('id', $id)
                 ->select('location_id')
                 ->first();
 
             $currentLocationId = $currentLocation->location_id;
 
-            $car = Car::where('id', $id)->update([
-                'type' => $request->type,
-                'location_id' => $request->location_id,
-                'plate' => $request->plate ,
-                'capacity' => $request->capacity,
-                'image_path' => $request->image_path,
-                'availability' => $request->availability
-            ]);
+            if($request->hasFile('cover_image')){
+                // Get filename with the extension
+                $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = $request->file('cover_image')->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                // Upload Image
+                $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+
+                $car = Car::where('id', $id)->update([
+                    'type' => $request->type,
+                    'location_id' => $request->location_id,
+                    'plate' => $request->plate ,
+                    'capacity' => $request->capacity,
+                    'image_path' => $fileNameToStore,
+                    'availability' => $request->availability
+                ]);
+            }else{
+                $car = Car::where('id', $id)->update([
+                    'type' => $request->type,
+                    'location_id' => $request->location_id,
+                    'plate' => $request->plate ,
+                    'capacity' => $request->capacity,
+                    'availability' => $request->availability
+                ]);
+            }
 
             if ($car != null) {
 
@@ -213,5 +280,23 @@ class CarController extends Controller
         } else {
             return response()->json(['error' => 'no car with such availability'], 404);
         }
+    }
+
+    public function testImg(){
+
+        try
+        {
+
+
+            $storagePath = public_path() . "/storage/cover_images/noImage.PNG" ;
+            return Image::make($storagePath)->response();
+        }
+        catch(NotReadableException $e)
+        {
+            // If error, stop and continue looping to next iteration
+            //continue;
+        }
+
+
     }
 }

@@ -4,5 +4,6 @@
     <mapping directory="$USER_HOME$" vcs="" />
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/powerful-sea-28932" vcs="Git" />
   </component>
 </project>
