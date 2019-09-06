@@ -314,7 +314,8 @@ class CarController extends Controller
                 $imagedata = file_get_contents($request->file('cover_image'));
                 $base64 = base64_encode($imagedata);
 
-                return response()->json(['base64' => $base64], 200);
+                //return response()->json(['base64' => Image::make($request->file('cover_image'))->resize(300, 200) ],200);
+                return response()->json(['base64' => strlen(gzcompress(gzcompress($base64))) ], 200);
             } else {
 
             }

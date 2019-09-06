@@ -82,7 +82,7 @@
             <div class="content">
                 <div class="title m-b-md">
                     <h1>Create Post</h1>
-                    {!! Form::open(['action' => 'CarController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['action' => 'CarController@storeTest2', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 
                     <div class="form-group">
                         {{Form::file('cover_image')}}
