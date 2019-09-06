@@ -17,7 +17,8 @@
         "laravelcollective/html": "~5.0",
         "nesbot/carbon": "2.16.3 as 1.34.0",
         "ext-gd": "*",
-        "tymon/jwt-auth": "^1.0.0-rc.3"
+        "tymon/jwt-auth": "^1.0.0-rc.3",
+        "ext-zlib": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
