@@ -75,7 +75,8 @@ class LocationTest extends TestCase
         $response = $this->call('POST', 'api/locations',
         [
             'address' => 'test',
-            'coordinate' => '123',
+            'latitude' => -35.1323214,
+            'longitude' => 144.121312,
             'slot' => '5'
         ]);
         $response->assertStatus(200);
