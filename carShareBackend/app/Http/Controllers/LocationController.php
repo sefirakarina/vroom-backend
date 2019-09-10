@@ -57,7 +57,8 @@ class LocationController extends Controller
         try{
             $location = Location::create ([
                 'address' => $request->address,
-                'coordinate' => $request->coordinate,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
                 'slot' => $request->slot,
                 'current_car_num' => 0
             ]);
@@ -114,7 +115,8 @@ class LocationController extends Controller
 
                 Location::where('id', $id)->update([
                     'address' => $request->address,
-                    'coordinate' => $request->coordinate,
+                    'latitude' => $request->latitude,
+                    'longitude' => $request->longitude,
                     'slot' => $request->slot,
                     'current_car_num' => $request->current_car_num,
                 ]);

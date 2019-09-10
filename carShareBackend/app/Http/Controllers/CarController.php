@@ -150,9 +150,8 @@ class CarController extends Controller
     {
         try{
 
-
             $currentLocation = Car::where('id', $id)
-                ->select('location_id')
+                ->select('location_id', 'image_path')
                 ->first();
 
             $currentLocationId = $currentLocation->location_id;
@@ -162,23 +161,20 @@ class CarController extends Controller
                 $imagedata = file_get_contents($request->file('cover_image'));
                 $base64 = base64_encode($imagedata);
 
-                $car = Car::where('id', $id)->update([
-                    'type' => $request->type,
-                    'location_id' => $request->location_id,
-                    'plate' => $request->plate ,
-                    'capacity' => $request->capacity,
-                    'image_path' => $base64,
-                    'availability' => $request->availability
-                ]);
+                $newImg = $base64;
+
             }else{
-                $car = Car::where('id', $id)->update([
-                    'type' => $request->type,
-                    'location_id' => $request->location_id,
-                    'plate' => $request->plate ,
-                    'capacity' => $request->capacity,
-                    'availability' => $request->availability
-                ]);
+                $newImg = $currentLocation->image_path;
             }
+
+            $car = Car::where('id', $id)->update([
+                'type' => $request->type,
+                'location_id' => $request->location_id,
+                'plate' => $request->plate ,
+                'capacity' => $request->capacity,
+                'image_path' => $newImg,
+                'availability' => $request->availability
+            ]);
 
             if ($car != null) {
 
@@ -195,10 +191,10 @@ class CarController extends Controller
 
                 return response()->json(['message' => 'update success'], 200);
             } else {
-                return response()->json(['error' => 'Car not updated'], 404);
+                return response()->json(['error' => 'car not updated'], 404);
             }
         }catch (\Exception $e){
-            return response()->json(['error' => 'Failed to edit car'], 404);
+            return response()->json(['error' => $request->type], 404);
         }
     }
     /**
