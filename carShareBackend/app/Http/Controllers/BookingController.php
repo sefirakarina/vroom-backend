@@ -17,7 +17,7 @@ class BookingController extends Controller
     protected $booking;
     public function __construct(Booking $booking)
     {
-        //$this->middleware('auth:api');
+        $this->middleware('auth:api');
         $this->booking = $booking;
     }
 
