@@ -8,7 +8,7 @@ class Location extends Model
 {
     public $timestamps = false;
     protected $table = 'locations';
-    protected $fillable = ['address', 'coordinate', 'slot', 'current_car_num'];
+    protected $fillable = ['address', 'latitude', 'longitude', 'slot', 'current_car_num'];
 
     public function customers(){
         return $this->hasMany('App\Car');
