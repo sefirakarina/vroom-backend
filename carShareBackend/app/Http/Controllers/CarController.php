@@ -26,7 +26,7 @@ class CarController extends Controller
     public function index()
     {
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
-            ->select('cars.*', 'locations.coordinate', 'locations.address', 'locations.slot', 'locations.current_car_num')
+            ->select('cars.*', 'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->get();
         $array = Array();
         $array['data'] = $car;
@@ -120,7 +120,7 @@ class CarController extends Controller
     public function show($id)
     {
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
-            ->select('cars.*', 'locations.coordinate', 'locations.address', 'locations.slot', 'locations.current_car_num')
+            ->select('cars.*', 'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->where('cars.id', '=', $id)
             ->get();
         $array = Array();
@@ -148,53 +148,134 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
+//        try{
+//
+//            $currentLocation = Car::where('id', $id)
+//                ->select('location_id', 'image_path')
+//                ->first();
+//
+//            $currentLocationId = $currentLocation->location_id;
+//
+//            if($request->hasFile('cover_image')){
+//
+//                $imagedata = file_get_contents($request->file('cover_image'));
+//                $base64 = base64_encode($imagedata);
+//
+//                $newImg = $base64;
+//
+//            }else{
+//                $newImg = $currentLocation->image_path;
+//            }
+//
+//            $car = Car::where('id', $id)->update([
+//                'type' => $request->type,
+//                'location_id' => $request->location_id,
+//                'plate' => $request->plate ,
+//                'capacity' => $request->capacity,
+//                'image_path' => $newImg,
+//                'availability' => $request->availability
+//
+//                'type' => "fdsfsdfds",
+//                'location_id' => 1,
+//                'plate' => "fdsssssfssfddhdffs" ,
+//                'capacity' => 2,
+//                'image_path' => "fsdfsaaa",
+//                'availability' => 1
+//            ]);
+//
+//            if ($car != null) {
+//
+//
+//                if($currentLocationId != $request-> location_id){
+//
+//                    try{
+//
+//                        $locationOld = Location::find($currentLocationId);
+//                        $locationOld-> current_car_num = $locationOld ->current_car_num -1 ;
+//                        $locationOld->save();
+//
+//                        $locationNew = Location::find($request-> location_id);
+//                        $locationNew-> current_car_num = $locationNew ->current_car_num +1 ;
+//                        $locationNew->save();
+//
+//                        return response()->json(['message' => "success adding car"], 200);
+//
+//                    }catch (\Exception $e){
+//                        return response()->json(['error' => $e], 404);
+//                    }
+//                }
+//                else
+//                    return response()->json(['message' => "success adding car"], 200);
+//            }
+//            else
+//                return response()->json(['error' => "car not updated"], 404);
+//        }catch (\Exception $e){
+//            return response()->json(['error' => $e], 404);
+//        }
+
+        if($request !=null){
 
             $currentLocation = Car::where('id', $id)
                 ->select('location_id', 'image_path')
                 ->first();
 
             $currentLocationId = $currentLocation->location_id;
+            $newImg = null;
 
+            // Handle File Upload
             if($request->hasFile('cover_image')){
-
                 $imagedata = file_get_contents($request->file('cover_image'));
                 $base64 = base64_encode($imagedata);
 
                 $newImg = $base64;
 
-            }else{
+            } else {
+
                 $newImg = $currentLocation->image_path;
             }
 
-            $car = Car::where('id', $id)->update([
-                'type' => $request->type,
-                'location_id' => $request->location_id,
-                'plate' => $request->plate ,
-                'capacity' => $request->capacity,
-                'image_path' => $newImg,
-                'availability' => $request->availability
-            ]);
 
-            if ($car != null) {
+            try{
 
-                if($currentLocationId != $request-> location_id){
+                $car = Car::where('id', $id)->update([
+                    'type' => $request->type,
+                    'location_id' => $request->location_id,
+                    'plate' => $request->plate ,
+                    'capacity' => $request->capacity,
+                    'image_path' => $newImg,
+                    'availability' => $request->availability,
+                ]);
 
-                    $locationOld = Location::find($currentLocationId);
-                    $locationOld-> current_car_num = $locationOld ->current_car_num -1 ;
-                    $locationOld->save();
+                if($car != null){
 
-                    $locationNew = Location::find($request-> location_id);
-                    $locationNew-> current_car_num = $locationNew ->current_car_num +1 ;
-                    $locationNew->save();
+                    if($currentLocationId != $request-> location_id){
+                        try{
+
+                            $locationOld = Location::find($currentLocationId);
+                            $locationOld-> current_car_num = $locationOld ->current_car_num -1 ;
+                            $locationOld->save();
+
+                            $locationNew = Location::find($request-> location_id);
+                            $locationNew-> current_car_num = $locationNew ->current_car_num +1 ;
+                            $locationNew->save();
+
+                            return response()->json(['message' => "success updating car"], 200);
+
+                        }catch (\Exception $e){
+                            return response()->json(['error' => " CATCH 1"], 404);
+                        }
+                    }
+                    else
+                        return response()->json(['message' => "success adding car"], 200);
                 }
+                else
+                    return response()->json(['error' => "CATCH 2"], 404);
 
-                return response()->json(['message' => 'update success'], 200);
-            } else {
-                return response()->json(['error' => 'car not updated'], 404);
+            }catch(\Exception $e){
+                  return response()->json(['error' => 'CATCH 3'], 404);
             }
-        }catch (\Exception $e){
-            return response()->json(['error' => $request->type], 404);
+        }else{
+            return response()->json(['error' => 'request is empty'], 404);
         }
     }
     /**
@@ -232,7 +313,7 @@ class CarController extends Controller
     public function getByAvailability($availability){
 
         $car=Car::join('locations', 'cars.location_id', 'locations.id')
-            ->select('cars.*', 'locations.coordinate', 'locations.address', 'locations.slot', 'locations.current_car_num')
+            ->select('cars.*', 'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->where('availability', $availability)
             ->get();
 

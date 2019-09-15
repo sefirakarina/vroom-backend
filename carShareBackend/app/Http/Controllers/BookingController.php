@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Booking;
+use App\Location;
 
 class BookingController extends Controller
 {
@@ -16,7 +17,7 @@ class BookingController extends Controller
     protected $booking;
     public function __construct(Booking $booking)
     {
-        $this->middleware('auth:api');
+        //$this->middleware('auth:api');
         $this->booking = $booking;
     }
 
@@ -43,7 +44,50 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request !=null){
+
+            try{
+
+                $locationCapacity = Location::where('id', $request->return_location_id)
+                   ->select('slot', 'current_car_num')
+                   ->first();
+
+                $currentAvailableSlot = $locationCapacity->slot - $locationCapacity->current_car_num;
+
+                $returnedCarNum = Booking::where('return_time', '<=', $request->return_time)
+                   -> where('return_location_id', '=', $request->return_location_id)
+                   ->get();
+                $returnedCarTotal = $returnedCarNum ->count();
+
+                $toBeBookedCarNum = Booking::where('begin_time', '=>', $request->return_time)
+                    -> where('return_location_id', '=', $request->return_location_id)
+                    ->get();
+                $toBeBookedCarTotal = $toBeBookedCarNum  ->count();
+
+                $totalAvailableSlot = $currentAvailableSlot - $returnedCarTotal + $toBeBookedCarTotal;
+
+                if($totalAvailableSlot > 0){
+
+                    $book = Booking::create ([
+
+                        'customer_id' => $request-> customer_id,
+                        'car_id' => $request-> car_id,
+                        'return_location_id' => $request-> return_location_id,
+                        'begin_time' => $request-> begin_time,
+                        'return_time' => $request-> return_time
+                    ]);
+
+                    return response()->json(['message' => 'successfully create booking'], 200);
+                }
+                else
+                    return response()->json(['error1' => 'the return location will be full on that day'], 404);
+            }catch (\Exception $e){
+                return response()->json(['error2' => $e], 404);
+            }
+
+        } else {
+            return response()->json(['error3' => 'Failed to add booking'], 404);
+        }
     }
 
     /**
@@ -77,7 +121,57 @@ class BookingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request !=null){
+
+            try{
+
+                $currentReturnLocation = Booking::where('id', $id)
+                    ->select('return_location_id')
+                    ->first();
+
+                $totalAvailableSlot = 1;
+
+                if($currentReturnLocation -> return_location_id != $request->return_location_id){
+
+                    $locationCapacity = Location::where('id', $request->return_location_id)
+                        ->select('slot', 'current_car_num')
+                        ->first();
+
+                    $currentAvailableSlot = $locationCapacity->slot - $locationCapacity->current_car_num;
+
+                    $returnedCarNum = Booking::where('return_time', '<=', $request->return_time)
+                        -> where('return_location_id', '=', $request->return_location_id)
+                        ->get();
+                    $returnedCarTotal = $returnedCarNum ->count();
+
+                    $toBeBookedCarNum = Booking::where('begin_time', '=>', $request->return_time)
+                        -> where('return_location_id', '=', $request->return_location_id)
+                        ->get();
+                    $toBeBookedCarTotal = $toBeBookedCarNum  ->count();
+
+                    $totalAvailableSlot = $currentAvailableSlot - $returnedCarTotal + $toBeBookedCarTotal;
+                }
+
+                if($totalAvailableSlot > 0){
+
+                    $book = Booking::where('id', $id)->update ([
+
+                        'return_location_id' => $request-> return_location_id,
+                        'begin_time' => $request-> begin_time,
+                        'return_time' => $request-> return_time
+                    ]);
+
+                    return response()->json(['message' => 'successfully edit booking'], 200);
+                }
+                else
+                    return response()->json(['error1' => 'the return location will be full on that day'], 404);
+            }catch (\Exception $e){
+                return response()->json(['error2' => $e], 404);
+            }
+
+        } else {
+            return response()->json(['error3' => 'Failed to edit booking'], 404);
+        }
     }
 
     /**
@@ -89,5 +183,22 @@ class BookingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showBookingByCusId($id){
+
+        $booking= Booking::join('cars','bookings.car_id','=','cars.id')
+            ->join('locations','bookings.return_location_id','=','locations.id')
+            ->join('customers','bookings.customer_id','=','customers.id')
+            ->select('customers.id as customer_id', 'bookings.*', 'cars.location_id as car_location_id','cars.plate','cars.type', 'cars.capacity', 'cars.image_path', 'cars.availability',
+                        'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
+            ->where('customers.id', '=', $id)
+            ->get();
+        $array = Array();
+        $array['data'] = $booking;
+        if(count($booking) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'booking not found'], 404);
+
     }
 }

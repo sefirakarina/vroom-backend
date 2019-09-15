@@ -23,7 +23,7 @@ Route::group([
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-Route::get('bookings/customer/{id}', 'BookingController@showCustomerBooking');
+Route::get('bookings/customer/{id}', 'BookingController@showBookingByCusId');
 Route::put('users/activate/{id}', 'CustomerController@activateCustomer');
 Route::get('users/customers/inactive', 'CustomerController@showInactiveCustomers');
 Route::get('users/customers/active', 'CustomerController@showActiveCustomers');
