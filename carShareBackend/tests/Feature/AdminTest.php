@@ -60,6 +60,7 @@ class AdminTest extends TestCase
         );
         $response->assertStatus(200);
 
+        // Assert number of users
         $user = User::users();
         $this->assertCount(2, $user);
         $response->assertStatus(200);

@@ -27,7 +27,7 @@ class LocationController extends Controller
         $array = Array();
         $array['data'] = $location;
 
-        if ($location != null) {
+        if (count($location) > 0) {
             return response()->json($array, 200);
         } else {
             return response()->json(['error' => 'Location not found'], 404);
@@ -66,7 +66,7 @@ class LocationController extends Controller
         }catch (\Exception $e){
             return response()->json(['error' => 'address is duplicated'], 422);
         }
-    
+
     } else {
         return response()->json(['error' => 'Failed to add location'], 404);
     }
@@ -83,7 +83,7 @@ class LocationController extends Controller
         $location = Location::find($id);
         $array = Array();
         $array['data'] = $location;
-        if (sizeof($array) > 0) {
+        if ($array != null) {
             return response()->json($array, 200);
         } else {
             return response()->json(['error' => 'Location not found'], 404);
@@ -112,7 +112,6 @@ class LocationController extends Controller
     {
         if($request != null){
             try{
-
                 Location::where('id', $id)->update([
                     'address' => $request->address,
                     'latitude' => $request->latitude,
@@ -148,6 +147,6 @@ class LocationController extends Controller
         // return redirect('/locations')->with('success', 'Location deleted!');
        }else{
         return response()->json(['error' => 'Unable to remove the location'], 404);
-       }    
+       }
 }
 }
