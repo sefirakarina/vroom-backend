@@ -24,7 +24,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
 
-class LocationTest extends TestCase
+class UpdateLocationStatusTest extends TestCase
 
 {
 
@@ -34,7 +34,7 @@ class LocationTest extends TestCase
 
     /**
 
-     * Create admin and user 
+     * Create admin and user
 
      *
 
@@ -54,7 +54,7 @@ class LocationTest extends TestCase
             'role' => 'admin'
         ]);
 
-        //login the admin account 
+        //login the admin account
         $response = $this->call('POST', 'api/auth/login',
             [
                 'email' => 'Sue@gmail.com',
@@ -70,18 +70,25 @@ class LocationTest extends TestCase
         );
 
         $response->assertStatus(200);
-        
-        //Update the customer status
+
+        //Update the location status
         $response = $this->call('POST', 'api/locations',
         [
             'address' => 'test',
+<<<<<<< Updated upstream:carShareBackend/tests/Feature/LocationTest.php
             'latitude' => -35.1323214,
             'longitude' => 144.121312,
             'slot' => '5'
+=======
+            'coordinate' => '123',
+            'slot' => 5
+>>>>>>> Stashed changes:carShareBackend/tests/Feature/UpdateLocationStatusTest.php
         ]);
         $response->assertStatus(200);
 
         $location = Location::location();
+
+        // Assert number of cars
         $this->assertCount(1, $location);
         $response->assertStatus(200);
 

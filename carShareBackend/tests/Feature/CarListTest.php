@@ -26,7 +26,7 @@ class CarListTest extends TestCase
             'address' => "78-56 Victoria St, Carlton VIC 3053",
             'coordinate' => "-37.806717, 144.965405",
             'slot' => 5,
-            'current_car_num' =>0
+            'current_car_num' => 0
         ]);
 
 
