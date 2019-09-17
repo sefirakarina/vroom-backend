@@ -20,6 +20,7 @@ class CreateBookingsTable extends Migration
             $table->integer('return_location_id')->unsigned();
             $table->dateTime('begin_time');
             $table->dateTime('return_time');
+            $table->boolean('status');
         });
 
         Schema::table('bookings', function (Blueprint $table) {

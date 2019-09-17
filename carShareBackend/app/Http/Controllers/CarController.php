@@ -19,7 +19,7 @@ class CarController extends Controller
     public function __construct(Car $car)
     {
 
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'getByAvailability', 'storeTest2', 'testImg']]);
+        //$this->middleware('auth:api', ['except' => ['index', 'show', 'getByAvailability', 'storeTest2', 'testImg']]);
         $this->car = $car;
     }
 
@@ -259,23 +259,23 @@ class CarController extends Controller
                             $locationNew-> current_car_num = $locationNew ->current_car_num +1 ;
                             $locationNew->save();
 
-                            return response()->json(['message' => "success updating car"], 200);
+                            return response()->json(['message1' => $request -> all()], 200);
 
                         }catch (\Exception $e){
-                            return response()->json(['error' => " CATCH 1"], 404);
+                            return response()->json(['error1' => $request -> all()], 404);
                         }
                     }
                     else
-                        return response()->json(['message' => "success adding car"], 200);
+                        return response()->json(['SUccess message2' => $request -> all()], 200);
                 }
                 else
-                    return response()->json(['error' => "CATCH 2"], 404);
+                    return response()->json(['error2' => $request -> all()], 404);
 
             }catch(\Exception $e){
-                  return response()->json(['error' => 'CATCH 3'], 404);
+                  return response()->json(['error3' => $request -> all()], 404);
             }
         }else{
-            return response()->json(['error' => 'request is empty'], 404);
+            return response()->json(['error4' => $request -> all()], 404);
         }
     }
     /**
