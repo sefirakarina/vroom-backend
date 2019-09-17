@@ -74,7 +74,8 @@ class BookingController extends Controller
                         'car_id' => $request-> car_id,
                         'return_location_id' => $request-> return_location_id,
                         'begin_time' => $request-> begin_time,
-                        'return_time' => $request-> return_time
+                        'return_time' => $request-> return_time,
+                        'status' => false
                     ]);
 
                     return response()->json(['message' => 'successfully create booking'], 200);
@@ -200,5 +201,21 @@ class BookingController extends Controller
             return response()->json($array, 200);
         return response()->json(['error' => 'booking not found'], 404);
 
+    }
+
+    public function showBookingsByStatus($status)
+    {
+        $booking=Booking::join('cars','bookings.car_id','=','cars.id')
+            ->join('locations','bookings.return_location_id','=','locations.id')
+            ->join('customers','bookings.customer_id','=','customers.id')
+            ->select('customers.id as customer_id', 'bookings.*', 'cars.location_id as car_location_id','cars.plate','cars.type', 'cars.capacity', 'cars.image_path', 'cars.availability',
+                'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
+            ->where('bookings.status', '=', $status)
+            ->get();
+        $array = Array();
+        $array['data'] = $booking;
+        if(count($booking) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'no booking found'], 404);
     }
 }

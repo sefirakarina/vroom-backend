@@ -17,7 +17,8 @@ class BookingsTableSeeder extends Seeder
             'car_id' => 6,
             'return_location_id' => 1,
             'begin_time' => new DateTime('2019-09-27 14:30:12'),
-            'return_time' =>new DateTime('2019-09-28 12:30:12')
+            'return_time' =>new DateTime('2019-09-28 12:30:12'),
+            'status' => false
         ]);
 
         DB::table('bookings')->insert([
@@ -26,7 +27,8 @@ class BookingsTableSeeder extends Seeder
             'car_id' => 7,
             'return_location_id' => 2,
             'begin_time' => new DateTime('2019-09-10 12:30:12'),
-            'return_time' =>new DateTime('2019-11-17 10:30:12')
+            'return_time' =>new DateTime('2019-11-17 10:30:12'),
+            'status' => true
         ]);
     }
 }
