@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Booking;
 use App\Location;
 
@@ -183,7 +184,13 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $booking = Booking::find($id);
+        if ($booking != null){
+            $booking->delete();
+            return response()->json(['message' => 'successfully delete the booking'], 200);
+            }else{
+             return response()->json(['error' => 'Unable to find the booking'], 404);
+            }
     }
 
     public function showBookingByCusId($id){
@@ -218,4 +225,23 @@ class BookingController extends Controller
             return response()->json($array, 200);
         return response()->json(['error' => 'no booking found'], 404);
     }
+
+    public function showMyBookings()
+    {
+        $user = auth()->user();
+        $booking=Booking::join('cars','bookings.car_id','=','cars.id')
+        ->join('locations','bookings.return_location_id','=','locations.id')
+        ->join('customers','bookings.customer_id','=','customers.id')
+        ->select('customers.id as customer_id', 'bookings.*', 'cars.location_id as car_location_id','cars.plate','cars.type', 'cars.capacity', 'cars.image_path', 'cars.availability',
+            'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
+        ->where('bookings.customer_id', '=', $user->id)
+        ->get();
+        $array = Array();
+        $array['data'] = $booking;
+        if(count($booking) > 0)
+        return response()->json($array, 200);
+        return response()->json(['error' => 'no booking found'], 404);
+
+    }
+
 }
