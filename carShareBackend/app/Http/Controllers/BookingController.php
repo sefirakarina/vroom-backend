@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Booking;
 use App\Location;
+use App\Customer;
 
 class BookingController extends Controller
 {
@@ -229,12 +230,14 @@ class BookingController extends Controller
     public function showMyBookings()
     {
         $user = auth()->user();
+        $customer = Customer::where('user_id','=', $user->id)->first();
         $booking=Booking::join('cars','bookings.car_id','=','cars.id')
         ->join('locations','bookings.return_location_id','=','locations.id')
         ->join('customers','bookings.customer_id','=','customers.id')
         ->select('customers.id as customer_id', 'bookings.*', 'cars.location_id as car_location_id','cars.plate','cars.type', 'cars.capacity', 'cars.image_path', 'cars.availability',
             'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
-        ->where('bookings.customer_id', '=', $user->id)
+        ->where('bookings.customer_id', '=', $customer->id)
+        ->where('bookings.status', '=', 0)
         ->get();
         $array = Array();
         $array['data'] = $booking;
