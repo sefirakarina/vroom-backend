@@ -108,13 +108,26 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      *
+     * 39. As an admin, I want to see details of a booking
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
+        $booking = Booking::join('customers','bookings.customer_id','=','customers.id')
+            ->join('cars','bookings.car_id','=','cars.id')
+            ->join('credit_cards','credit_cards.customer_id','=','bookings.customer_id')
+            ->join('locations','bookings.return_location_id','=','locations.id')
+            ->where('bookings.id', '=', $id)
+            ->get();
 
+        $array = Array();
+        $array['data'] = $booking;
+
+        if(count($booking) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'booking not found'], 404);
     }
 
     /**
