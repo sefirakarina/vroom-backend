@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Customer;
 
 class AuthController extends Controller
 {
@@ -27,11 +28,28 @@ class AuthController extends Controller
         }
 
         $user=Auth::user();
-        $data=[
-            'token'=>$token,
-            'id'=>$user->id,
-            'role'=>$user->role
-        ];
+
+        if($user->role == 'customer'){
+
+            $cus_id = Customer::where('user_id', $user->id)
+                ->select('id')
+                ->first();
+
+            $data=[
+                'token'=>$token,
+                'user_id'=>$user->id,
+                'customer_id'=>$cus_id->id,
+                'role'=>$user->role
+            ];
+        }
+        else{
+            $data=[
+                'token'=>$token,
+                'id'=>$user->id,
+                'role'=>$user->role
+            ];
+        }
+
         $array = Array();
         $array['data'] = $data;
         return response()->json($array, 200);

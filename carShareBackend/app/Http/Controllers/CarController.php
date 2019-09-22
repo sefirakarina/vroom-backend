@@ -97,7 +97,7 @@ class CarController extends Controller
                     $location->save();
 
 
-                    return response()->json(['message' => 'successfuly create car'], 200);
+                    return response()->json(['message' => $car], 200);
                 }catch (\Exception $e){
                     return response()->json(['error' => 'qFailed to add car, plate number already exist'], 404);
                 }

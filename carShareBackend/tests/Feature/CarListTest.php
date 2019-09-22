@@ -24,7 +24,8 @@ class CarListTest extends TestCase
         factory(Location::class)->create([
             'id' => 1,
             'address' => "78-56 Victoria St, Carlton VIC 3053",
-            'coordinate' => "-37.806717, 144.965405",
+            'latitude' => -37.806717,
+            'longitude' => 144.965405,
             'slot' => 5,
             'current_car_num' => 0
         ]);
@@ -69,7 +70,7 @@ class CarListTest extends TestCase
             ]
         );
         $response->assertStatus(200);
-        $new_car_id = json_decode($response->getContent())->data->id;
+        $new_car_id = json_decode($response->getContent())->message->id;
 
         //create new car with incorrect input
         $response = $this->call('POST', 'api/cars',

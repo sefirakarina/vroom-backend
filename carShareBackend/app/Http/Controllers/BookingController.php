@@ -92,7 +92,7 @@ class BookingController extends Controller
                         'status' => false
                     ]);
 
-                    return response()->json(['message' => 'successfully create booking'], 200);
+                    return response()->json(['message' => $book], 200);
                 }
                 else
                     return response()->json(['error1' => 'the return location will be full on that day'], 404);
@@ -277,7 +277,7 @@ class BookingController extends Controller
 
 
     // 25. As a customer, I want to be able to see the cars' available rent dates
-    public function showUnavailabilityByCarId($id){
+    public function showCarsUnavailableDates($id){
         $booking = Booking::where('car_id', '=', $id)
             ->get();
 

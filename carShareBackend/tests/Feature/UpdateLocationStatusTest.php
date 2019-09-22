@@ -75,14 +75,11 @@ class UpdateLocationStatusTest extends TestCase
         $response = $this->call('POST', 'api/locations',
         [
             'address' => 'test',
-<<<<<<< Updated upstream:carShareBackend/tests/Feature/LocationTest.php
             'latitude' => -35.1323214,
             'longitude' => 144.121312,
-            'slot' => '5'
-=======
+            'slot' => '5',
             'coordinate' => '123',
-            'slot' => 5
->>>>>>> Stashed changes:carShareBackend/tests/Feature/UpdateLocationStatusTest.php
+
         ]);
         $response->assertStatus(200);
 
