@@ -96,12 +96,26 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      *
+     * 36. As an admin, I want to be able to see customer's bookings
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $booking = Booking::join('customers','bookings.customer_id','=','customers.id')
+            ->join('cars','bookings.car_id','=','cars.id')
+            ->join('credit_cards','credit_cards.customer_id','=','bookings.customer_id')
+            ->join('locations','bookings.return_location_id','=','locations.id')
+            ->where('bookings.id', '=', $id)
+            ->get();
+
+        $array = Array();
+        $array['data'] = $booking;
+
+        if(count($booking) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'booking not found'], 404);
     }
 
     /**
@@ -211,21 +225,23 @@ class BookingController extends Controller
 
     }
 
+
     public function showBookingsByStatus($status)
     {
-        $booking=Booking::join('cars','bookings.car_id','=','cars.id')
-            ->join('locations','bookings.return_location_id','=','locations.id')
-            ->join('customers','bookings.customer_id','=','customers.id')
-            ->select('customers.id as customer_id', 'bookings.*', 'cars.location_id as car_location_id','cars.plate','cars.type', 'cars.capacity', 'cars.image_path', 'cars.availability',
+        $booking = Booking::join('cars', 'bookings.car_id', '=', 'cars.id')
+            ->join('locations', 'bookings.return_location_id', '=', 'locations.id')
+            ->join('customers', 'bookings.customer_id', '=', 'customers.id')
+            ->select('customers.id as customer_id', 'bookings.*', 'cars.location_id as car_location_id', 'cars.plate', 'cars.type', 'cars.capacity', 'cars.image_path', 'cars.availability',
                 'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->where('bookings.status', '=', $status)
             ->get();
         $array = Array();
         $array['data'] = $booking;
-        if(count($booking) > 0)
+        if (count($booking) > 0)
             return response()->json($array, 200);
         return response()->json(['error' => 'no booking found'], 404);
     }
+
 
     public function showMyBookings()
     {
@@ -247,4 +263,28 @@ class BookingController extends Controller
 
     }
 
+
+    // 25. As a customer, I want to be able to see the cars' available rent dates
+    public function showUnavailabilityByCarId($id){
+        $booking = Booking::where('car_id', '=', $id)
+            ->get();
+
+        $array = Array();
+        $array['data'] = $booking;
+
+        if(count($booking) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'car not found'], 404);
+
+    }
+
+    // 38. As a user, I want to activate my booking
+    public function activateBooking($id){
+        $booking  = Booking::where('id', '=', $id)->update(['status' => 0]);
+
+        if ($booking == true){
+            return response()->json(['message' => 'successfully activate booking status'], 200);
+        }
+        else return response()->json(['error' => 'booking not updated'], 404);
+    }
 }

@@ -24,8 +24,15 @@ Route::group([
 //    return $request->user();
 //});
 Route::get('bookings/customer/{id}', 'BookingController@showBookingByCusId');
+
 Route::get('bookings/mybookings', 'BookingController@showMyBookings');
+
 Route::get('bookings/status/{status}', 'BookingController@showBookingsByStatus');
+
+Route::get('bookings/unavailability/car/{car}', 'BookingController@showUnavailabilityByCarId');
+
+Route::put('bookings/status/activate/{status}', 'BookingController@activateBooking');
+
 Route::put('users/activate/{id}', 'CustomerController@activateCustomer');
 Route::get('users/customers/inactive', 'CustomerController@showInactiveCustomers');
 Route::get('users/customers/active', 'CustomerController@showActiveCustomers');
