@@ -11,7 +11,7 @@ class Booking extends Model
     protected $fillable = ['user_id', 'car_id', 'return_location_id', 'begin_time','return_time', 'customer_id', 'status'];
 
     public function users(){
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\Customer', 'user_id');
     }
 
     public static function booking(){

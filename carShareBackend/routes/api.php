@@ -25,11 +25,11 @@ Route::group([
 //});
 Route::get('bookings/customer/{id}', 'BookingController@showBookingByCusId');
 
-Route::get('bookings/mybookings', 'BookingController@showMyBookings');
+Route::get('bookings/customers/ongoing', 'BookingController@showMyBookings');
 
 Route::get('bookings/status/{status}', 'BookingController@showBookingsByStatus');
 
-Route::get('bookings/unavailability/car/{car}', 'BookingController@showUnavailabilityByCarId');
+Route::get('bookings/cars/unavailableDates/{id}', 'BookingController@showCarsUnavailableDates');
 
 Route::put('bookings/status/activate/{status}', 'BookingController@activateBooking');
 

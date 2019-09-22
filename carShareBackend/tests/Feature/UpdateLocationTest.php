@@ -41,7 +41,8 @@ class UpdateLocationTest extends TestCase
         factory(Location::class)->create([
             'id' => 1,
             'address' => "78-56 Victoria St, Carlton VIC 3053",
-            'coordinate' => "-37.806717, 144.965405",
+            'latitude' => -37.806717,
+            'longitude' => 144.965405,
             'slot' => 5,
             'current_car_num' => 0
         ]);
@@ -49,7 +50,8 @@ class UpdateLocationTest extends TestCase
         factory(Location::class)->create([
             'id' => 2,
             'address' => "441 Lonsdale St, Melbourne VIC 3000",
-            'coordinate' => "-37.813303, 144.959397",
+            'latitude' => -37.806717,
+            'longitude' => 144.965405,
             'slot' => 4,
             'current_car_num' => 1
         ]);

@@ -25,7 +25,16 @@ class BookingController extends Controller
 
     public function index()
     {
-        //
+        $booking = Booking::join('customers','bookings.customer_id','=','customers.id')
+            ->join('cars','bookings.car_id','=','cars.id')
+            ->join('credit_cards','credit_cards.customer_id','=','bookings.customer_id')
+            ->join('locations','bookings.return_location_id','=','locations.id')
+            ->get();
+        $array = Array();
+        $array['data'] = $booking;
+        if(count($booking) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'booking not found'], 404);
     }
 
     /**
@@ -80,7 +89,7 @@ class BookingController extends Controller
                         'status' => false
                     ]);
 
-                    return response()->json(['message' => 'successfully create booking'], 200);
+                    return response()->json(['message' => $book], 200);
                 }
                 else
                     return response()->json(['error1' => 'the return location will be full on that day'], 404);
@@ -265,7 +274,7 @@ class BookingController extends Controller
 
 
     // 25. As a customer, I want to be able to see the cars' available rent dates
-    public function showUnavailabilityByCarId($id){
+    public function showCarsUnavailableDates($id){
         $booking = Booking::where('car_id', '=', $id)
             ->get();
 

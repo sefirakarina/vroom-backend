@@ -18,6 +18,10 @@ class Customer extends Model
         return $this->hasOne('App\CreditCard');
     }
 
+    public function bookings(){
+        return $this->hasMany('App\Booking');
+    }
+
     public static function customer(){
         return Customer::all();
     }
