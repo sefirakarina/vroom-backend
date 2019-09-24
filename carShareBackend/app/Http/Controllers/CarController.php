@@ -99,7 +99,7 @@ class CarController extends Controller
 
                     return response()->json(['message' => $car], 200);
                 }catch (\Exception $e){
-                    return response()->json(['error' => 'qFailed to add car, plate number already exist'], 404);
+                    return response()->json(['error' => 'Failed to add car, plate number already exist'], 404);
                 }
 
 
@@ -148,71 +148,6 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        try{
-//
-//            $currentLocation = Car::where('id', $id)
-//                ->select('location_id', 'image_path')
-//                ->first();
-//
-//            $currentLocationId = $currentLocation->location_id;
-//
-//            if($request->hasFile('cover_image')){
-//
-//                $imagedata = file_get_contents($request->file('cover_image'));
-//                $base64 = base64_encode($imagedata);
-//
-//                $newImg = $base64;
-//
-//            }else{
-//                $newImg = $currentLocation->image_path;
-//            }
-//
-//            $car = Car::where('id', $id)->update([
-//                'type' => $request->type,
-//                'location_id' => $request->location_id,
-//                'plate' => $request->plate ,
-//                'capacity' => $request->capacity,
-//                'image_path' => $newImg,
-//                'availability' => $request->availability
-//
-//                'type' => "fdsfsdfds",
-//                'location_id' => 1,
-//                'plate' => "fdsssssfssfddhdffs" ,
-//                'capacity' => 2,
-//                'image_path' => "fsdfsaaa",
-//                'availability' => 1
-//            ]);
-//
-//            if ($car != null) {
-//
-//
-//                if($currentLocationId != $request-> location_id){
-//
-//                    try{
-//
-//                        $locationOld = Location::find($currentLocationId);
-//                        $locationOld-> current_car_num = $locationOld ->current_car_num -1 ;
-//                        $locationOld->save();
-//
-//                        $locationNew = Location::find($request-> location_id);
-//                        $locationNew-> current_car_num = $locationNew ->current_car_num +1 ;
-//                        $locationNew->save();
-//
-//                        return response()->json(['message' => "success adding car"], 200);
-//
-//                    }catch (\Exception $e){
-//                        return response()->json(['error' => $e], 404);
-//                    }
-//                }
-//                else
-//                    return response()->json(['message' => "success adding car"], 200);
-//            }
-//            else
-//                return response()->json(['error' => "car not updated"], 404);
-//        }catch (\Exception $e){
-//            return response()->json(['error' => $e], 404);
-//        }
-
         if($request !=null){
 
             $currentLocation = Car::where('id', $id)
@@ -259,23 +194,23 @@ class CarController extends Controller
                             $locationNew-> current_car_num = $locationNew ->current_car_num +1 ;
                             $locationNew->save();
 
-                            return response()->json(['message1' => $request -> all()], 200);
+                            return response()->json(['message1' => "successfully updating car"], 200);
 
                         }catch (\Exception $e){
-                            return response()->json(['error1' => $request -> all()], 404);
+                            return response()->json(['error' => $e], 404);
                         }
                     }
                     else
-                        return response()->json(['SUccess message2' => $request -> all()], 200);
+                        return response()->json(['message2' => "successfully updating car"], 200);
                 }
                 else
-                    return response()->json(['error2' => $request -> all()], 404);
+                    return response()->json(['error2' => $request -> $e], 404);
 
             }catch(\Exception $e){
-                  return response()->json(['error3' => $request -> all()], 404);
+                  return response()->json(['error3' => $e], 404);
             }
         }else{
-            return response()->json(['error4' => $request -> all()], 404);
+            return response()->json(['error4' => "request is null"], 404);
         }
     }
     /**

@@ -25,7 +25,7 @@ Route::group([
 //});
 Route::get('bookings/customer/{id}', 'BookingController@showBookingByCusId');
 
-Route::get('bookings/customers/ongoing', 'BookingController@showMyBookings');
+Route::get('bookings/status/{id}/{status}', 'BookingController@showMyBookings');
 
 Route::get('bookings/status/{status}', 'BookingController@showBookingsByStatus');
 

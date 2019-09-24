@@ -28,8 +28,13 @@ class BookingController extends Controller
     {
         $booking = Booking::join('customers','bookings.customer_id','=','customers.id')
             ->join('cars','bookings.car_id','=','cars.id')
+            ->join('users','bookings.customer_id','=','users.id')
             ->join('credit_cards','credit_cards.customer_id','=','bookings.customer_id')
             ->join('locations','bookings.return_location_id','=','locations.id')
+            ->select('bookings.*', 'users.name', 'users.email','customers.id as customer_id', 'customers.address','customers.phone_number',
+                'customers.license_number','customers.status as customer_status', 'credit_cards.id as cc_id', 'credit_cards.name as cc_name',
+                'credit_cards.number', 'credit_cards.exp_date','cars.location_id as car_location_id', 'cars.plate', 'cars.type',
+                'cars.capacity', 'cars.image_path', 'cars.availability', 'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
             ->get();
 
         $array = Array();
@@ -255,17 +260,17 @@ class BookingController extends Controller
     }
 
 
-    public function showMyBookings()
+    public function showMyBookings($id, $status)
     {
-        $user = auth()->user();
-        $customer = Customer::where('user_id','=', $user->id)->first();
+//        $user = auth()->user();
+//        $customer = Customer::where('user_id','=', $user->id)->first();
         $booking=Booking::join('cars','bookings.car_id','=','cars.id')
         ->join('locations','bookings.return_location_id','=','locations.id')
         ->join('customers','bookings.customer_id','=','customers.id')
         ->select('customers.id as customer_id', 'bookings.*', 'cars.location_id as car_location_id','cars.plate','cars.type', 'cars.capacity', 'cars.image_path', 'cars.availability',
             'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
-        ->where('bookings.customer_id', '=', $customer->id)
-        ->where('bookings.status', '=', 0)
+        ->where('bookings.customer_id', '=', $id)
+        ->where('bookings.status', '=', $status)
         ->get();
         $array = Array();
         $array['data'] = $booking;
