@@ -297,7 +297,7 @@ class BookingController extends Controller
 
     // 38. As a user, I want to activate my booking
     public function activateBooking($id){
-        $booking  = Booking::where('id', '=', $id)->update(['status' => 0]);
+        $booking  = Booking::where('id', '=', $id)->update(['status' => 1]);
 
         if ($booking == true){
             return response()->json(['message' => 'successfully activate booking status'], 200);
