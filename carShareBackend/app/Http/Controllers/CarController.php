@@ -19,7 +19,7 @@ class CarController extends Controller
     public function __construct(Car $car)
     {
 
-        //$this->middleware('auth:api', ['except' => ['index', 'show', 'getByAvailability', 'storeTest2', 'testImg']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'getByAvailability', 'storeTest2', 'testImg']]);
         $this->car = $car;
     }
 
@@ -80,6 +80,7 @@ class CarController extends Controller
                         'capacity' => $request->capacity,
                         'image_path' => $base64,
                         'availability' => $request->availability,
+                        'price_per_day' =>$request->price_per_day
                     ]);
 
 //                    $car = Car::create ([
@@ -179,6 +180,7 @@ class CarController extends Controller
                     'capacity' => $request->capacity,
                     'image_path' => $newImg,
                     'availability' => $request->availability,
+                    'price_per_day' => $request->price_per_day
                 ]);
 
                 if($car != null){

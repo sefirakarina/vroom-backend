@@ -22,6 +22,10 @@ class Customer extends Model
         return $this->hasMany('App\Booking');
     }
 
+    public function history(){
+        return $this->hasMany('App\History');
+    }
+
     public static function customer(){
         return Customer::all();
     }

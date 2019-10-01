@@ -19,6 +19,7 @@ class CreateCarsTable extends Migration
             $table->string('plate')->unique();
             $table->string('type');
             $table->integer('capacity');
+            $table->double('price_per_day');
             $table->longText('image_path');
             $table->boolean('availability');
         });
