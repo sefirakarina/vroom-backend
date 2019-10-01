@@ -21,6 +21,7 @@ class CreateBookingsTable extends Migration
             $table->dateTime('begin_time');
             $table->dateTime('return_time');
             $table->boolean('status');
+            $table->boolean('payment_status');
         });
 
         Schema::table('bookings', function (Blueprint $table) {

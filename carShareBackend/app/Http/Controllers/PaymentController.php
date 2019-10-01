@@ -20,10 +20,10 @@ class PaymentController extends Controller
     public function __construct()
     {
 
-        $this->middleware('auth:api');
+       $this->middleware('auth:api');
     }
 
-    public function createPayment($car_id){
+    public function createPayment(Request $request){
 
         $apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
@@ -32,7 +32,7 @@ class PaymentController extends Controller
             )
         );
 
-        $car = Car::where('id', $car_id)
+        $car = Car::where('id', $request->car_id)
             ->select('type', 'price_per_day')
             ->first();
 
@@ -42,8 +42,8 @@ class PaymentController extends Controller
         $item1 = new Item();
         $item1->setName($car->type)
                 ->setCurrency('AUD')
-                ->setQuantity(1)
-                ->setSku($car_id) // Similar to `item_number` in Classic API
+                ->setQuantity($request->rentDays)
+                ->setSku($request->car_id) // Similar to `item_number` in Classic API
                 ->setPrice($car->price_per_day);
 
         $itemList = new ItemList();
@@ -52,11 +52,11 @@ class PaymentController extends Controller
         $details = new Details();
         $details->setShipping(0)
                 ->setTax(0)
-                ->setSubtotal($car->price_per_day);
+                ->setSubtotal($car->price_per_day * $request->rentDays);
 
         $amount = new Amount();
         $amount->setCurrency("AUD")
-                ->setTotal($car->price_per_day)
+                ->setTotal($car->price_per_day * $request->rentDays)
                 ->setDetails($details);
 
         $transaction = new Transaction();
@@ -107,13 +107,16 @@ class PaymentController extends Controller
         try {
             // Execute payment
             $result = $payment->execute($execution, $apiContext);
-            var_dump($result);
+            //var_dump($result);
+            return response()->json(json_decode($result), 200);
+
         } catch (PayPal\Exception\PayPalConnectionException $ex) {
-            echo $ex->getCode();
-            echo $ex->getData();
-            die($ex);
+            return response()->json(['error' => $ex->getData()], 500);
+//            echo $ex->getCode();
+//            echo $ex->getData();
+//            die($ex);
         } catch (Exception $ex) {
-            die($ex);
+            return response()->json(['error' => $ex], 500);
         }
 
     }
