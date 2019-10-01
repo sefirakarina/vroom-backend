@@ -40,6 +40,9 @@ Route::get('cars/availability/{availability}', 'CarController@getByAvailability'
 Route::get('cars/testImg', 'CarController@testImg');
 Route::post('cars/storeTest', 'CarController@storeTest2');
 
+Route::get('/payment/execute', 'PaymentController@execute');
+Route::post('/payment/create/{car_id}', 'PaymentController@createPayment');
+
 Route::resource('bookings', 'BookingController');
 Route::resource('customers', 'CustomerController');
 Route::resource('cars', 'CarController');

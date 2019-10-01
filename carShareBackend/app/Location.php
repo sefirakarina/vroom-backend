@@ -10,7 +10,7 @@ class Location extends Model
     protected $table = 'locations';
     protected $fillable = ['address', 'latitude', 'longitude', 'slot', 'current_car_num'];
 
-    public function customers(){
+    public function cars(){
         return $this->hasMany('App\Car');
     }
 
