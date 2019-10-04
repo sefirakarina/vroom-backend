@@ -27,11 +27,16 @@ Route::get('bookings/customer/{id}', 'BookingController@showBookingByCusId');
 
 Route::get('bookings/status/{id}/{status}', 'BookingController@showMyBookings');
 
+Route::put('bookings/paymentStatus/{id}/{status}', 'BookingController@changePaymentStatus');
+
+
 Route::get('bookings/status/{status}', 'BookingController@showBookingsByStatus');
 
 Route::get('bookings/cars/unavailableDates/{id}', 'BookingController@showCarsUnavailableDates');
 
 Route::put('bookings/status/activate/{status}', 'BookingController@activateBooking');
+
+Route::put('bookings/status/deactivate/{status}', 'BookingController@deactivateBooking');
 
 Route::put('users/activate/{id}', 'CustomerController@activateCustomer');
 Route::get('users/customers/inactive', 'CustomerController@showInactiveCustomers');
@@ -41,7 +46,7 @@ Route::get('cars/testImg', 'CarController@testImg');
 Route::post('cars/storeTest', 'CarController@storeTest2');
 
 Route::get('/payment/execute', 'PaymentController@execute');
-Route::post('/payment/create/{car_id}', 'PaymentController@createPayment');
+Route::post('/payment/create', 'PaymentController@createPayment');
 
 Route::resource('bookings', 'BookingController');
 Route::resource('customers', 'CustomerController');

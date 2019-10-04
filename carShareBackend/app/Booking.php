@@ -8,7 +8,7 @@ class Booking extends Model
 {
     public $timestamps = false;
     protected $table = 'bookings';
-    protected $fillable = ['user_id', 'car_id', 'return_location_id', 'begin_time','return_time', 'customer_id', 'status'];
+    protected $fillable = ['user_id', 'car_id', 'return_location_id', 'begin_time','return_time', 'customer_id', 'status', 'payment_status'];
 
     public function customers(){
         return $this->belongsTo('App\Customer', 'customer_id');

@@ -94,7 +94,8 @@ class BookingController extends Controller
                         'return_location_id' => $request-> return_location_id,
                         'begin_time' => $request-> begin_time,
                         'return_time' => $request-> return_time,
-                        'status' => false
+                        'status' => false,
+                        'payment_status' => false
                     ]);
 
                     return response()->json(['message' => $book], 200);
@@ -303,5 +304,24 @@ class BookingController extends Controller
             return response()->json(['message' => 'successfully activate booking status'], 200);
         }
         else return response()->json(['error' => 'booking not updated'], 404);
+    }
+
+    public function deactivateBooking($id){
+        $booking  = Booking::where('id', '=', $id)->update(['status' => 1]);
+
+        if ($booking == true){
+            return response()->json(['message' => 'successfully activate booking status'], 200);
+        }
+        else return response()->json(['error' => 'booking not updated'], 404);
+    }
+
+    public function changePaymentStatus($id, $status){
+
+        $booking  = Booking::where('id', '=', $id)->update(['payment_status' => $status]);
+
+        if ($booking == true){
+            return response()->json(['message' => 'successfully updating payment status'], 200);
+        }
+        else return response()->json(['error' => 'booking payment status not updated'], 404);
     }
 }
