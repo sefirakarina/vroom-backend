@@ -89,4 +89,24 @@ class HistoryController extends Controller
     {
         //
     }
+
+    public function showMyHistories($id)
+    {
+//        $user = auth()->user();
+//        $customer = Customer::where('user_id','=', $user->id)->first();
+        $history=History::join('cars','histories.car_id','=','cars.id')
+        ->join('locations','histories.return_location_id','=','locations.id')
+        ->join('customers','histories.customer_id','=','customers.id')
+        ->select('customers.id as customer_id', 'histories.*', 'cars.location_id as car_location_id','cars.plate','cars.type', 'cars.capacity', 'cars.image_path', 'cars.availability',
+            'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
+        ->where('histories.customer_id', '=', $id)
+        ->get();
+        $array = Array();
+        $array['data'] = $history;
+        if(count($history) > 0)
+        return response()->json($array, 200);
+        return response()->json(['error' => 'no booking found'], 404);
+
+    }
+
 }

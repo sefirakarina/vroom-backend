@@ -19,6 +19,9 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+    // Route::post('create', 'PasswordResetController@create');
+    // Route::get('find/{token}', 'PasswordResetController@find');
+    // Route::post('reset', 'PasswordResetController@reset');
 });
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
@@ -54,3 +57,10 @@ Route::resource('cars', 'CarController');
 Route::resource('histories', 'HistoryController');
 Route::resource('locations', 'LocationController');
 Route::resource('users', 'UserController');
+Route::resource('pw', 'PasswordResetController');
+
+Route::get('history/{id}', 'HistoryController@showMyHistories');
+
+Route::post('password/create', 'PasswordResetController@create');
+Route::get('password/find/{token}', 'PasswordResetController@find');
+Route::post('password/reset', 'PasswordResetController@reset');
