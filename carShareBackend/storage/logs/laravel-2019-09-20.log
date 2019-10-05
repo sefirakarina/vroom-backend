@@ -1,0 +1,51 @@
+[2019-09-20 17:17:19] local.ERROR: Class 'Collective\Html\HtmlServiceProvider' not found {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Class 'Collective\\Html\\HtmlServiceProvider' not found at C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php:208)
+[stacktrace]
+#0 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(144): Illuminate\\Foundation\\ProviderRepository->createProvider('Collective\\\\Html...')
+#1 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(61): Illuminate\\Foundation\\ProviderRepository->compileManifest(Array)
+#2 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(584): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#3 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#4 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(210): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#5 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(322): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#6 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#8 {main}
+"} 
+[2019-09-20 17:22:21] local.ERROR: Class 'Collective\Html\HtmlServiceProvider' not found {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Class 'Collective\\Html\\HtmlServiceProvider' not found at C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php:208)
+[stacktrace]
+#0 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(144): Illuminate\\Foundation\\ProviderRepository->createProvider('Collective\\\\Html...')
+#1 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(61): Illuminate\\Foundation\\ProviderRepository->compileManifest(Array)
+#2 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(584): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#3 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#4 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(210): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#5 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(322): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#6 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#8 {main}
+"} 
+[2019-09-20 18:03:19] local.ERROR: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ (SQL: SHOW FULL TABLES WHERE table_type = 'BASE TABLE') {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ (SQL: SHOW FULL TABLES WHERE table_type = 'BASE TABLE') at C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ at C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('SHOW FULL TABLE...', Array, Object(Closure))
+#1 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(333): Illuminate\\Database\\Connection->run('SHOW FULL TABLE...', Array, Object(Closure))
+#2 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\MySqlBuilder.php(99): Illuminate\\Database\\Connection->select('SHOW FULL TABLE...')
+#3 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\MySqlBuilder.php(48): Illuminate\\Database\\Schema\\MySqlBuilder->getAllTables()
+#4 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\FreshCommand.php(79): Illuminate\\Database\\Schema\\MySqlBuilder->dropAllTables()
+#5 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\FreshCommand.php(46): Illuminate\\Database\\Console\\Migrations\\FreshCommand->dropAllTables(NULL)
+#6 [internal function]: Illuminate\\Database\\Console\\Migrations\\FreshCommand->handle()
+#7 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(32): call_user_func_array(Array, Array)
+#8 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#9 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#10 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#11 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#12 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\symfony\\console\\Command\\Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#13 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#14 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\symfony\\console\\Application.php(915): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\symfony\\console\\Application.php(272): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Migrations\\FreshCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\symfony\\console\\Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 {main}
+"} 
