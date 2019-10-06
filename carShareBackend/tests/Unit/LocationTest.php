@@ -19,16 +19,18 @@ class LocationTest extends TestCase
         factory(Location::class)->create([
             'id' => 1,
             'address' => "78-56 Victoria St, Carlton VIC 3053",
-            'coordinate' => "-37.806717, 144.965405",
+            'latitude' => -37.806717,
+            'longitude' => 144.965405,
             'slot' => 5,
-            'current_car_num' =>1
+            'current_car_num' =>2
         ]);
         factory(Location::class)->create([
             'id' => 2,
             'address' => "441 Lonsdale St, Melbourne VIC 3000",
-            'coordinate' => "-37.813303, 144.959397",
+            'latitude' => -37.813303,
+            'longitude' =>144.959397,
             'slot' => 4,
-            'current_car_num' =>0
+            'current_car_num' =>1
         ]);
         $locations = Location::location();
         $this->assertCount(2, $locations);
@@ -36,16 +38,18 @@ class LocationTest extends TestCase
             [
                 'id' => 1,
                 'address' => "78-56 Victoria St, Carlton VIC 3053",
-                'coordinate' => "-37.806717, 144.965405",
+                'latitude' => -37.806717,
+                'longitude' => 144.965405,
                 'slot' => 5,
-                'current_car_num' =>1
+                'current_car_num' =>2
             ],
             [
                 'id' => 2,
                 'address' => "441 Lonsdale St, Melbourne VIC 3000",
-                'coordinate' => "-37.813303, 144.959397",
+                'latitude' => -37.813303,
+                'longitude' =>144.959397,
                 'slot' => 4,
-                'current_car_num' =>0
+                'current_car_num' =>1
             ],
         ], $locations->toArray());
     }
