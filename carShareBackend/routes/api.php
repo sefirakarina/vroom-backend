@@ -64,3 +64,5 @@ Route::get('history/{id}', 'HistoryController@showMyHistories');
 Route::post('password/create', 'PasswordResetController@create');
 Route::get('password/find/{token}', 'PasswordResetController@find');
 Route::post('password/reset', 'PasswordResetController@reset');
+
+Route::delete('users/admin/delete/{id}', 'UserController@deleteAdmin');

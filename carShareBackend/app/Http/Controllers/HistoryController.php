@@ -20,9 +20,26 @@ class HistoryController extends Controller
         $this->history = $history;
     }
 
+    // 40. As an admin, I want to see all  customer's booking histories
     public function index()
     {
-        //
+        $history = History::join('customers','histories.customer_id','=','customers.id')
+            ->join('cars','histories.car_id','=','cars.id')
+            ->join('users','histories.customer_id','=','users.id')
+            ->join('credit_cards','credit_cards.customer_id','=','histories.customer_id')
+            ->join('locations','histories.return_location_id','=','locations.id')
+            ->select('histories.*', 'users.name', 'users.email','customers.id as customer_id', 'customers.address','customers.phone_number',
+                'customers.license_number','customers.status as customer_status', 'credit_cards.id as cc_id', 'credit_cards.name as cc_name',
+                'credit_cards.number', 'credit_cards.exp_date','cars.location_id as car_location_id', 'cars.plate', 'cars.type',
+                'cars.capacity', 'cars.image_path', 'cars.availability', 'locations.latitude', 'locations.longitude', 'locations.address', 'locations.slot', 'locations.current_car_num')
+            ->get();
+
+        $array = Array();
+        $array['data'] = $history;
+
+        if(count($history) > 0)
+            return response()->json($array, 200);
+        return response()->json(['error' => 'history not found'], 404);
     }
 
     /**

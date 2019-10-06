@@ -114,4 +114,16 @@ class UserController extends Controller
     {
         //
     }
+
+    // 24. As a super-admin, I want to be able to delete existing admin
+    public function deleteAdmin($id)
+    {
+        $deleted = User::where('id', $id)
+            ->where('role', 'admin')
+            ->delete();
+
+        if($deleted == 1)
+            return response()->json(['message' => 'admin deleted'], 200);
+        return response()->json(['error' => 'admin not found'], 404);
+    }
 }
