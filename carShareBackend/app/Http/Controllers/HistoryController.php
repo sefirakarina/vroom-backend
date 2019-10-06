@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Booking;
 use Illuminate\Http\Request;
 use App\History;
 
@@ -42,7 +43,36 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+
+            $booking = Booking::where('id', $request->booking_id)
+                ->select('bookings.*')
+                ->first();
+
+            $bookingToBeDeleted= Booking::find($request->booking_id);
+
+            if ($bookingToBeDeleted != null){
+
+                $bookingToBeDeleted->delete();
+
+                $history = History::create ([
+                    'customer_id' => $booking-> customer_id,
+                    'car_id' => $booking-> car_id,
+                    'return_location_id' => $booking-> return_location_id,
+                    'begin_time' => $booking-> begin_time,
+                    'return_time' => $request->return_time
+                ]);
+
+            }else{
+                return response()->json(['error' => 'Unable to delete the booking and create history'], 404);
+            }
+            return response()->json(['message' => $history], 200);
+
+        }catch(\Exception $e) {
+            return response()->json(['error' => $e], 404);
+        }
+
+
     }
 
     /**
