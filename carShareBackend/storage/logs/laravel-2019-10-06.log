@@ -127,3 +127,13 @@
 #49 C:\\Users\\user\\Desktop\\CAPSTONE\\vroom-backend\\carShareBackend\\server.php(21): require_once('C:\\\\Users\\\\user\\\\D...')
 #50 {main}
 "} 
+[2019-10-06 12:10:35] local.ERROR: There are no commands defined in the "clear" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"clear\" namespace. at C:\\Users\\Sefira Karina\\Desktop\\vroom-backend\\carShareBackend\\vendor\\symfony\\console\\Application.php:583)
+[stacktrace]
+#0 C:\\Users\\Sefira Karina\\Desktop\\vroom-backend\\carShareBackend\\vendor\\symfony\\console\\Application.php(632): Symfony\\Component\\Console\\Application->findNamespace('clear')
+#1 C:\\Users\\Sefira Karina\\Desktop\\vroom-backend\\carShareBackend\\vendor\\symfony\\console\\Application.php(236): Symfony\\Component\\Console\\Application->find('clear:cache')
+#2 C:\\Users\\Sefira Karina\\Desktop\\vroom-backend\\carShareBackend\\vendor\\symfony\\console\\Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\Users\\Sefira Karina\\Desktop\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\Users\\Sefira Karina\\Desktop\\vroom-backend\\carShareBackend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 C:\\Users\\Sefira Karina\\Desktop\\vroom-backend\\carShareBackend\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 

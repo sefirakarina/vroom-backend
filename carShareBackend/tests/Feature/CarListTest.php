@@ -46,7 +46,8 @@ class CarListTest extends TestCase
             'plate' => "B121fd212",
             'capacity' => 4,
             'image_path'=>"./vroom-frontend/src/assets/volkswagen.PNG",
-            'availability' =>true
+            'availability' =>true,
+            'price_per_day'=> 80
         ]);
 
         //admin login to get token to manipulate car list
@@ -66,7 +67,8 @@ class CarListTest extends TestCase
                 'plate' => "B543463",
                 'capacity' => 4,
                 'image_path'=>"./vroom-frontend/src/assets/aaaa.jpg",
-                'availability' =>true
+                'availability' =>true,
+                'price_per_day'=> 80
             ]
         );
         $response->assertStatus(200);
@@ -80,7 +82,8 @@ class CarListTest extends TestCase
                 'plate' => "",
                 'capacity' => 4,
                 'image_path'=>"./vroom-frontend/src/assets/aaaa.jpg",
-                'availability' =>true
+                'availability' =>true,
+                'price_per_day'=> 80
             ]
         );
         $response->assertStatus(404);
@@ -93,7 +96,8 @@ class CarListTest extends TestCase
                 'plate' => "B124342",
                 'capacity' => 5,
                 'image_path'=>"./vroom-frontend/src/assets/volkswagen2.jpg",
-                'availability' =>false
+                'availability' =>false,
+                'price_per_day'=> 80
             ], $this->transformHeadersToServerVars(['Authorization' => $login->json("access_token")])
         );
         $response->assertStatus(200);
@@ -106,7 +110,8 @@ class CarListTest extends TestCase
                 'plate' => "",
                 'capacity' => 5,
                 'image_path'=>"./vroom-frontend/src/assets/volkswagen2.jpg",
-                'availability' =>false
+                'availability' =>false,
+                'price_per_day'=> 80
             ], $this->transformHeadersToServerVars(['Authorization' => $login->json("access_token")])
         );
         $response->assertStatus(404);
