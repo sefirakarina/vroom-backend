@@ -119,13 +119,30 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * 28. As a customer, I want to be able to edit my profile information
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request != null){
+            try{
+                Customer::where('id', '=', $id)->update([
+                    'address' => $request->address,
+                    'phone_number' => $request->phone_number,
+                    'license_number' => $request->license_number,
+                ]);
+                return response()->json(['message' => 'successfully edit customer'], 200);
+
+            } catch (\Exception $e){
+//                return response()->json(['error' => 'got an exception'], 404);
+                print $e;
+            }
+        }else {
+            return response()->json(['error' => 'customer not updated'], 404);
+        }
     }
 
     /**
@@ -143,7 +160,7 @@ class CustomerController extends Controller
 
     public function activateCustomer($id)
     {
-        
+
         $customer = Customer::find($id);
         $customer->status = 1;
         $customer->save();
@@ -182,7 +199,7 @@ class CustomerController extends Controller
             return response()->json($array, 200);
         return response()->json(['error' => 'customer not found'], 404);
     }
-    
+
 
 //    public function showCustomerBooking($id){
 //        $customer = Booking::join('cars','bookings.car_id','=','cars.id')

@@ -33,7 +33,7 @@ class PasswordResetController extends Controller
         );
         if ($user && $passwordReset)
             $user->notify(
-                new PasswordResetRequest($passwordReset->token)
+                new PasswordResetRequest($passwordReset->token,$passwordReset->email)
             );
         return response()->json([
             'message' => 'We have e-mailed your password reset link!'

@@ -107,11 +107,19 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * 24. As a super-admin, I want to be able to delete existing admin
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $deleted = User::where('id', $id)
+            ->delete();
+
+        if($deleted == 1)
+            return response()->json(['message' => 'admin deleted'], 200);
+        return response()->json(['error' => 'admin not found'], 404);
     }
+
 }
