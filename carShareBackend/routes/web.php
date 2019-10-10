@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/pay', function () {
     return view('welcome');
 });
 

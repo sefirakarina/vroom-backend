@@ -1,5 +1,6 @@
 <?php
 namespace Tests\Feature;
+use App\Customer;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
@@ -19,10 +20,18 @@ class UserLoginTest extends TestCase
     {
         factory(User::class)->create([
             'id' => 1,
-            'name' => "Sue",
-            'email' => 'Sue@gmail.com',
+            'name' => "aaa",
+            'email' => 'aaa@gmail.com',
             'password' => Hash::make("secret"),
             'role' => 'customer'
+        ]);
+        factory(Customer::class)->create([
+            'id' => 1,
+            'user_id' => 1,
+            'address' => "P Sherman 42 Wallaby Way, Sydney",
+            'phone_number' => "04010204",
+            'license_number' =>"123456",
+            'status'=> true
         ]);
         factory(User::class)->create([
             'id' => 2,
@@ -39,20 +48,14 @@ class UserLoginTest extends TestCase
             'role' => 'superAdmin'
         ]);
         //customer login test
+
         $response = $this->call('POST', 'api/auth/login',
             [
-                'email' => 'Sue@gmail.com',
+                'email' => 'aaa@gmail.com',
                 'password' => 'secret',
             ]
         );
         $response->assertStatus(200);
-        $response = $this->call('POST', 'api/auth/login',
-            [
-                'email' => 'Sue@gmail.com',
-                'password' => Hash::make('wrongpassword'),
-            ]
-        );
-        $response->assertStatus(401);
         //admin login test
         $response = $this->call('POST', 'api/auth/login',
             [

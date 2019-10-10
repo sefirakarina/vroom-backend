@@ -23,7 +23,7 @@ class UserLoginTest extends TestCase
             'name' => "Sue",
             'email' => 'Sue@gmail.com',
             'password' => Hash::make("secret"),
-            'role' => 'customer'
+            'role' => 'admin'
         ]);
 
         //user login

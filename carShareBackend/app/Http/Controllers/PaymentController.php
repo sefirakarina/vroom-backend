@@ -14,16 +14,26 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 
+use Sample\PayPalClient;
+use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
+
+use PayPalCheckoutSdk\Core\PayPalHttpClient;
+use PayPalCheckoutSdk\Core\SandboxEnvironment;
+
+ini_set('error_reporting', E_ALL); // or error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+
 class PaymentController extends Controller
 {
 
     public function __construct()
     {
 
-       $this->middleware('auth:api');
+       //$this->middleware('auth:api');
     }
 
-    public function createPayment(Request $request){
+    public function createPayment(/*Request $request*/){
 
         $apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
@@ -32,7 +42,13 @@ class PaymentController extends Controller
             )
         );
 
-        $car = Car::where('id', $request->car_id)
+        $car_id = $_GET['car_id'] ;
+        $rentDays = $_GET['rentDays'] ;
+        $user_id = $_GET['user_id'] ;
+        $booking_id = $_GET['booking_id'] ;
+
+
+        $car = Car::where('id', $car_id)
             ->select('type', 'price_per_day')
             ->first();
 
@@ -42,8 +58,8 @@ class PaymentController extends Controller
         $item1 = new Item();
         $item1->setName($car->type)
                 ->setCurrency('AUD')
-                ->setQuantity($request->rentDays)
-                ->setSku($request->car_id) // Similar to `item_number` in Classic API
+                ->setQuantity($rentDays)
+                ->setSku($car_id) // Similar to `item_number` in Classic API
                 ->setPrice($car->price_per_day);
 
         $itemList = new ItemList();
@@ -52,11 +68,11 @@ class PaymentController extends Controller
         $details = new Details();
         $details->setShipping(0)
                 ->setTax(0)
-                ->setSubtotal($car->price_per_day * $request->rentDays);
+                ->setSubtotal($car->price_per_day * $rentDays);
 
         $amount = new Amount();
         $amount->setCurrency("AUD")
-                ->setTotal($car->price_per_day * $request->rentDays)
+                ->setTotal($car->price_per_day * $rentDays)
                 ->setDetails($details);
 
         $transaction = new Transaction();
@@ -66,7 +82,7 @@ class PaymentController extends Controller
                     ->setInvoiceNumber(uniqid());
 
         $redirectUrls = new RedirectUrls();
-        $redirectUrls   ->setReturnUrl("http://localhost:8000/api/payment/execute")
+        $redirectUrls   ->setReturnUrl("http://localhost:8000/api/payment/execute/?user_id=". $user_id. "&booking_id=" . $booking_id)
                         ->setCancelUrl("https://vroom-frontend.herokuapp.com");
 
         $payment = new Payment();
@@ -78,7 +94,7 @@ class PaymentController extends Controller
         try {
             $payment->create($apiContext);
         } catch (PayPal\Exception\PayPalConnectionException $ex) {
-            return response()->json(['error' => $ex->getData()], 500);
+            return response()->json(['error' => $ex->getData()], 417);
         }
 
         return redirect($payment->getApprovalLink());
@@ -120,4 +136,7 @@ class PaymentController extends Controller
         }
 
     }
+
+
+
 }
