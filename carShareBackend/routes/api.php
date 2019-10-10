@@ -50,7 +50,7 @@ Route::post('cars/storeTest', 'CarController@storeTest2');
 
 Route::get('/payment/execute', 'PaymentController@execute');
 Route::get('/payment/create', 'PaymentController@createPayment');
-Route::post('/payment/create2', 'PaymentController@createOrder2');
+Route::get('/payment/determineBookingStatus', 'PaymentController@determineBookingStatus');
 
 Route::resource('bookings', 'BookingController');
 Route::resource('customers', 'CustomerController');
