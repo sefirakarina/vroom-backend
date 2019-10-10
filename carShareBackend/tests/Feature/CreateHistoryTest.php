@@ -8,6 +8,7 @@ use App\Location;
 use App\User;
 use App\Booking;
 use App\Customer;
+use App\History;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -66,6 +67,17 @@ class CreateUpdateBookingTest extends TestCase
             'price_per_day'=> 80
         ]);
 
+        factory(Booking::class)->create([
+            'id' => 1,
+            'customer_id' => 1,
+            'car_id' => 1,
+            'return_location_id' => 2,
+            'begin_time' => new DateTime('2019-09-27 14:30:12'),
+            'return_time' =>new DateTime('2019-09-28 12:30:12'),
+            'status' => false,
+            'payment_status' => true
+        ]);
+
         $login = $this->call('POST', 'api/auth/login',
             [
                 'email' => 'jane@gmail.com',
@@ -74,61 +86,20 @@ class CreateUpdateBookingTest extends TestCase
         );
         $login->assertStatus(200);
 
-        $response = $this->call('POST', 'api/bookings',
+        $response = $this->call('POST', 'api/histories',
             [
-                'customer_id' => 1,
-                'car_id' => 1,
-                'return_location_id' => 2,
-                'begin_time' => new DateTime('2019-09-27 14:30:12'),
-                'return_time' =>new DateTime('2019-09-28 12:30:12')
+                'booking_id' => 1,
+                'return_time' =>new DateTime('2019-09-28 12:20:12')
             ]
         );
         $response->assertStatus(200);
-        $new_car_id = json_decode($response->getContent())->message->id;
 
         //create new booking with incorrect input
         $response = $this->call('POST', 'api/bookings',
             [
-                'customer_id' => 1,
-                'car_id' => 1,
-                'return_location_id' => 2,
-                'begin_time' => '',
-                'return_time' =>new DateTime('2019-09-28 12:30:12')
+                'booking_id' => 1,
+                'return_time' =>''
             ]
-        );
-        $response->assertStatus(404);
-
-        $login = $this->call('POST', 'api/auth/login',
-            [
-                'email' => 'john@gmail.com',
-                'password' => 'secret',
-            ]
-        );
-        $login->assertStatus(200);
-
-        // edit a booking with correct input
-        $response = $this->call('PATCH', 'api/bookings/' . $new_car_id,
-            [
-                'customer_id' => 1,
-                'car_id' => 1,
-                'return_location_id' => 2,
-                'begin_time' => new DateTime('2019-09-28 14:30:12'),
-                'return_time' =>new DateTime('2019-09-29 12:30:12')
-
-            ], $this->transformHeadersToServerVars(['Authorization' => $login->json("access_token")])
-        );
-        $response->assertStatus(200);
-
-        //edit incorrect input
-        $response = $this->call('PATCH', 'api/bookings/' . $new_car_id ,
-            [
-                'customer_id' => 1,
-                'car_id' => 1,
-                'return_location_id' => 2,
-                'begin_time' => "",
-                'return_time' =>new DateTime('2019-09-29 12:30:12')
-
-            ], $this->transformHeadersToServerVars(['Authorization' => $login->json("access_token")])
         );
         $response->assertStatus(404);
 

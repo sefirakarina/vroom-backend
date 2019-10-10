@@ -49,7 +49,8 @@ Route::get('cars/testImg', 'CarController@testImg');
 Route::post('cars/storeTest', 'CarController@storeTest2');
 
 Route::get('/payment/execute', 'PaymentController@execute');
-Route::post('/payment/create', 'PaymentController@createPayment');
+Route::get('/payment/create', 'PaymentController@createPayment');
+Route::post('/payment/create2', 'PaymentController@createOrder2');
 
 Route::resource('bookings', 'BookingController');
 Route::resource('customers', 'CustomerController');

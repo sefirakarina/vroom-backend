@@ -33,8 +33,8 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 4,
-            'name' => "uzumaki naruto",
-            'email' => "naruto@hokage.com",
+            'name' => "jane doe",
+            'email' => "jane@doe.com",
             'password' => Hash::make("secret"),
             'role' =>"customer"
         ]);

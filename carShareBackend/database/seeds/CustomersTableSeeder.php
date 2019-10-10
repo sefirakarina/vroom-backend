@@ -50,7 +50,7 @@ class CustomersTableSeeder extends Seeder
             'id' => 2,
             'customer_id' => 2,
             'number' => "1234567867890123",
-            'name' => "uzumaki naruto",
+            'name' => "jane doe",
             'exp_date' =>"11/21"
         ]);
 
