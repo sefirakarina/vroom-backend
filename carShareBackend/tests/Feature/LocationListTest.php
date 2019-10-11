@@ -28,10 +28,10 @@ class LocationListTest extends TestCase
         ]);
 
         factory(Location::class)->create([
-            'id' => 2,'latitude' => -37.806717,
-            'longitude' => 144.965405,
+            'id' => 2,
             'address' => "441 Lonsdale St, Melbourne VIC 3000",
-            'coordinate' => "-37.813303, 144.959397",
+            'latitude' => -37.806717,
+            'longitude' => 144.965405,
             'slot' => 4,
             'current_car_num' => 1
         ]);

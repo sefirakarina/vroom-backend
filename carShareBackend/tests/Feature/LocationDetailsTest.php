@@ -51,7 +51,7 @@ class LocationDetailsTest extends TestCase
 
 
         // See location details
-        $response = $this->call('GET', 'api/cars/locations/1',
+        $response = $this->call('GET', 'api/locations/1',
             $this->transformHeadersToServerVars([ 'Authorization' => $login->json("access_token")])
         );
         $response->assertStatus(200);

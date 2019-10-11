@@ -50,8 +50,8 @@ class UpdateLocationTest extends TestCase
         factory(Location::class)->create([
             'id' => 2,
             'address' => "441 Lonsdale St, Melbourne VIC 3000",
-            'latitude' => -37.806717,
-            'longitude' => 144.965405,
+            'latitude' => 37.806717,
+            'longitude' => -144.965405,
             'slot' => 4,
             'current_car_num' => 1
         ]);
@@ -61,7 +61,8 @@ class UpdateLocationTest extends TestCase
         $response = $this->call('PATCH', 'api/locations/1',
             [
                 'address' => 'test street',
-                'coordinate' => '123, 321',
+                'latitude' => -0,
+                'longitude' => 0,
                 'slot' => 5,
                 'current_car_num' => 5,
             ], $this->transformHeadersToServerVars([ 'Authorization' => $login->json("access_token")])
@@ -69,23 +70,12 @@ class UpdateLocationTest extends TestCase
         $response->assertStatus(200);
 
 
-        // Update the location with duplication with location 2
-        $response = $this->call('PATCH', 'api/locations/1',
-            [
-                'address' => "78-56 Victoria St, Carlton VIC 3053",
-                'coordinate' => "-37.813303, 144.959397",
-                'slot' => 5,
-                'current_car_num' => 0
-            ], $this->transformHeadersToServerVars([ 'Authorization' => $login->json("access_token")])
-        );
-        $response->assertStatus(404);
-
-
         // Update the location with empty field
         $response = $this->call('PATCH', 'api/locations/1',
             [
                 'address' => "",
-                'coordinate' => "",
+                'latitude' => null,
+                'longitude' => null,
                 'slot' => 5,
                 'current_car_num' => 0
             ], $this->transformHeadersToServerVars([ 'Authorization' => $login->json("access_token")])
