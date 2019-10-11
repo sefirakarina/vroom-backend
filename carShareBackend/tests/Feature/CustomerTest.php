@@ -12,6 +12,7 @@ class CustomerTest extends TestCase
 {
     use DatabaseTransactions;
 
+
     public function testExample()
     {
 

@@ -11,7 +11,7 @@ use App\User;
 use DateTime;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
-use Tests\TestCase;
+use phpDocumentor\Reflection\DocBlock\Tags\Author;use Tests\TestCase;
 
 class ActivateBookingTest extends TestCase
 {

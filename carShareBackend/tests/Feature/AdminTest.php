@@ -12,9 +12,9 @@ class AdminTest extends TestCase
 {
     use DatabaseTransactions;
 
+
     public function testExample()
     {
-
         factory(User::class)->create([
             'id' => 2,
             'name' => "john",

@@ -34,7 +34,7 @@ class LocationTest extends TestCase
 
     /**
 
-     * Create admin and user 
+     * Create admin and user
 
      *
 
@@ -63,7 +63,7 @@ class LocationTest extends TestCase
             'role' => 'admin'
         ]);
 
-        //login the admin account 
+        //login the admin account
         $response = $this->call('POST', 'api/auth/login',
             [
                 'email' => 'Sue@gmail.com',
@@ -79,6 +79,7 @@ class LocationTest extends TestCase
         );
 
         $response->assertStatus(200);
+
         //delete location
         $response = $this->delete('api/locations/1');
         $response->assertStatus(200);

@@ -118,8 +118,8 @@ class UserController extends Controller
             ->delete();
 
         if($deleted == 1)
-            return response()->json(['message' => 'admin deleted'], 200);
-        return response()->json(['error' => 'admin not found'], 404);
+            return response()->json(['message' => 'user deleted'], 200);
+        return response()->json(['error' => 'user not found'], 404);
     }
 
 }
