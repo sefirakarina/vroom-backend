@@ -40,6 +40,7 @@ class UnavailableDateTest extends TestCase
             'type'=>"Volkswagen Beetles",
             'plate' => "B121212",
             'capacity' => 4,
+            'price_per_day' => 80,
             'image_path'=>"test",
             'availability' => 1
         ]);
@@ -81,10 +82,11 @@ class UnavailableDateTest extends TestCase
             'return_location_id' => 1,
             'begin_time' => new DateTime('2019-09-27 14:30:12'),
             'return_time' =>new DateTime('2019-09-28 12:30:12'),
-            'status' => 0
+            'status' => 0,
+            'payment_status' => 0
         ]);
 
-        //login the admin account
+        //login the customer account
         $response = $this->call('POST', 'api/auth/login',
             [
                 'email' => 'Sue@gmail.com',
@@ -94,11 +96,8 @@ class UnavailableDateTest extends TestCase
         $response->assertStatus(200);
 
         $response = $this->call('POST', 'api/auth/me',
-
             $this->transformHeadersToServerVars([ 'Authorization' => $response->json("access_token")])
-
         );
-
         $response->assertStatus(200);
 
         // display car's unavailability
