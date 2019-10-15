@@ -38,6 +38,7 @@ class ShowBookingDetailsTest extends TestCase
             'type'=>"Volkswagen Beetles",
             'plate' => "B121212",
             'capacity' => 4,
+            'price_per_day' => 80,
             'image_path'=>"test",
             'availability' => 1
         ]);
@@ -79,7 +80,8 @@ class ShowBookingDetailsTest extends TestCase
             'return_location_id' => 1,
             'begin_time' => new DateTime('2019-09-27 14:30:12'),
             'return_time' =>new DateTime('2019-09-28 12:30:12'),
-            'status' => 0
+            'status' => 0,
+            'payment_status' => 0
         ]);
 
         //login the admin account

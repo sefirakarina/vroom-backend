@@ -137,7 +137,6 @@ class CustomerController extends Controller
                 return response()->json(['message' => 'successfully edit customer'], 200);
 
             } catch (\Exception $e){
-//                return response()->json(['error' => 'got an exception'], 404);
                 print $e;
             }
         }else {

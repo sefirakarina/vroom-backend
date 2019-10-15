@@ -80,14 +80,23 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        $location = Location::find($id);
-        $array = Array();
-        $array['data'] = $location;
-        if ($array != null) {
-            return response()->json($array, 200);
-        } else {
-            return response()->json(['error' => 'Location not found'], 404);
+        try{
+            $location = Location::findOrFail($id);
+            $array = Array();
+            $array['data'] = $location;
+
+            return response()->json(['message' => 'successfully edit car'], 200);
+        } catch (\Exception $e){
+            return response()->json(['error' => 'location duplication or empty'], 404);
         }
+
+
+
+//        if ($location != null) {
+//            return response()->json($array, 200);
+//        } else {
+//            return response()->json(['error' => 'Location not found'], 404);
+//        }
     }
 
     /**
@@ -122,7 +131,7 @@ class LocationController extends Controller
                 return response()->json(['message' => 'successfully edit car'], 200);
 
             } catch (\Exception $e){
-                return response()->json(['error' => 'location duplication'], 404);
+                return response()->json(['error' => 'location duplication or empty'], 404);
             }
 
         }else {
