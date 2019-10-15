@@ -37,7 +37,7 @@ class PasswordResetRequest extends Notification implements ShouldQueue
      */
      public function toMail($notifiable)
      {
-        $url = url('/api/password/reset/?token='.$this->token.'&email='.$this->email);
+        $url = url('https://vroom-frontend.herokuapp.com/reset/continue?token='.$this->token.'&email='.$this->email);
         return (new MailMessage)
             ->line('You are receiving this email because we received a password reset request for your account.')
             ->action('Reset Password', url($url));
