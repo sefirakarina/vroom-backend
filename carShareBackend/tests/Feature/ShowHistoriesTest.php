@@ -33,7 +33,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
 
-class DeleteBookingTest extends TestCase
+class ShowHistoriesTest extends TestCase
 
 {
 

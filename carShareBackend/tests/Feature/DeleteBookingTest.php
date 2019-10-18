@@ -70,6 +70,7 @@ class DeleteBookingTest extends TestCase
             'plate' => "B121212",
             'capacity' => 4,
             'image_path'=>"test",
+            'price_per_day'=>5,
             'availability' =>true
         ]);
         
@@ -101,7 +102,8 @@ class DeleteBookingTest extends TestCase
             'return_location_id' => 1,
             'begin_time' => new DateTime('2019-09-27 14:30:12'),
             'return_time' =>new DateTime('2019-09-28 12:30:12'),
-            'status' => false
+            'status' => false,
+            'payment_status' => false,
         ]);       
 
         //login the admin account 
