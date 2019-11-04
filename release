@@ -1,0 +1,39 @@
+Sprint 1
+Complete release on: 25/08/2019
+Key Features:
+•	Completed models, and migrations
+•	User authentication with JWT
+•	User registration
+•	Query to see all cars
+•	Seeder and factory for user, customer, credit card, location, car
+•	Unit testing for all completed queries
+•	Admin can activate customer’s account
+
+Sprint 2
+Complete release on: 15/9/2019
+Key Features:
+•	Completed CRUD for car and location controllers
+•	Search car by nearest location available for customer
+•	Unit testing for all completed query
+
+Sprint 3
+Complete release on: 29/9/2019
+Key Features:
+•	Customer can see the available booking dates of a car
+•	Customer can book a car and see their ongoing bookings
+•	Customer can delete their booking and update the return location
+•	Customer can see details of their account
+•	Admin can see customer’s bookings
+•	Customer can activate their bookings
+
+Sprint 4
+Complete release on: 12/10/2019
+Key Features:
+•	Customer can complete the car returning process
+•	Customer can see their booking’s activation status
+•	Admin can see all booking histories
+•	Super admin can delete existing admin
+•	User can reset password through email
+•	Customer can edit their profile
+•	Customer can pay with PayPal
+
